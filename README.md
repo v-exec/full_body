@@ -8,8 +8,8 @@ In addition, _full\_body_ tracks time spent on different muscle groups during th
 
 More information found on [my site](https://v-os.ca/full_body).
 
-![](https://github.com/v-exec/full_body/tree/master/assets/1.png)
-![](https://github.com/v-exec/full_body/tree/master/assets/2.png)
+![image of app](https://github.com/v-exec/full_body/tree/master/assets/1.png "Exercise Visual")
+![image of app](https://github.com/v-exec/full_body/tree/master/assets/2.png "Exercise Visual")
 
 ## How To Use
 
