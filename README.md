@@ -103,4 +103,4 @@ These are primarily calisthenic exercises, and therefore _full\_body_ does not i
 
 This application is simply a fun way to add some variety to one's workout. It is not a substitute for anything, and does not guarantee a more efficient workout plan than other options.
 
-Also, the small database of exercises is a result of amateur online research, so if you know about fitness and want to make corrections to exercise names, targeted muscle groups and so on, please let me know at victor.ivanov.design@gmail.com!
+Also, the small database of exercises is a result of my amateur online research. I am in no ways an expert, and am fairly certain that some of the technical information in my generated flavor text for each exercise is to some degree inaccurate. So if you know about fitness and want to make corrections to exercise names, targeted muscle groups, or the generated text descriptions please let me know at victor.ivanov.design@gmail.com and I'll incorporate your feedback!
