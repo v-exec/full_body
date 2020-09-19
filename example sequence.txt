@@ -12,3 +12,4 @@ side plank, 30e, 1
 pike / handstand, 0 / 30, 2
 single leg hip raise / squat, 30e / 30, 2
 pistol squat, 10e, 2
+pushup, 20, 2
