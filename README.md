@@ -1,2 +1,106 @@
 # full_body
-Exercise sequencer.
+
+_full\_body_ is an exercise sequencer. This simple web application is meant to provide a more varied way of performing a workout. By providing it with a list of exercises, it will generate a unique sequence of exercises each time, making each workout less monotonous!
+
+Not only that, but _full\_body_ helps you stay motivated with a progress tracker, and lots of flavor text to keep you engaged. Each exercise also has text associated with it that describes the exercise and keeps you focused and mindful of your form.
+
+In addition, _full\_body_ tracks time spent on different muscle groups during the exercise and outputs it to the user at the end, meaning you can take that information and easily copy it to a spreadsheet or some other external tool for long-term tracking purposes.
+
+More information found on [my site](https://v-os.ca/full_body).
+
+## How To Use
+
+_full\_body_ is run entirely on the web, on [v-os](https://exp.v-os.ca/full_body).
+
+For _full\_body_ to understand what sequence of movements you'd like to do, you must create a `.txt` file which includes those movements and upload it to the site. No need for a profile, no need to re-enter your workout plan each time, and no need for me to waste my time programming any of that.
+
+An example `.txt` file is found in the root folder, named `example sequence.txt`. Check it out while reading the short tutorial below to follow along!
+
+## Options
+
+When creating your text file, a few options exist to cater the experience of _full\_body_ to your needs. All of these options can be omitted from the text file, the default value is assumed.
+
+`circuit`, by default `false`, is an option which allows you to perform your sets in a randomized order. If set to `true`, then an exercise with multiple sets will have those sets appear at random points in the sequence. If set to `false`, then an exercise with multiple sets will have all of its sets done in order.
+
+`timer`, by default `true`, is a flag denoting you'd like to time your exercises. If set to `true`, a timer will appear during each movement, and in the end, a summary of your times will be shown. If set to `false`, no timer will appear, and results will not be tracked.
+
+## Formatting
+
+Now that our options are set up, we can write down the list of exercises we'd like to do.
+
+Start with `movements:` and a new line to begin the list of movements. Make sure this `movements:` is _under_ the other options outlined above!
+
+Each line is a movement. Let's use `pushup` as an example. First, we write the name, then the number of reps, then the number of sets, each comma separated.
+
+`pushup` `,` `20` `,` `3`
+
+So that's 3 sets of 20 pushups each. If you don't put down a set count, it is assumed you're only doing 1 set. If you don't put down a rep count or put down `0` as a rep count, it is assumed you're doing reps until failure. The following line means: a single set (since we didn't specifiy a set count) of pushups until failure (since we put `0` as a rep count).
+
+`pushup` `,` `0`
+
+In the case of static exercises, like the plank, the reps count will be considered as a number of seconds to hold the form.
+
+But what if you want to spice things up? Maybe you don't really care whether you're doing regular pushups, or wide pushups? Well, you can write this:
+
+`pushup / wide pushup` `,` `20 / 30` `,` `3`
+
+What this means is _either_ do a set of 20 pushups, _or_ do a set of 30 wide pushups, and all of that for 3 sets.
+If `circuit` is `true`, then the first time around you might have pushups to do, the next time wide pushups, and the final time regular pushups again. Otherwise you'll only have one of the two.
+
+Keep in mind, you can have as many options as you want for a single exercise. For instance, you could put all of your triceps-targeting movements on a single line and have a huge amount of variety, like this:
+
+`pushup / diamond pushup / pike / handstand pushup / dip` `,` `20 / 15 / 15 / 5 / 20` `,` `3`
+
+Now you've got 3 sets of a random selection of those 5 exercises! Just make sure to also include reps for each respective exercise.
+
+Finally, if you're doing an asymmetric exercise that needs to be done once on each side, simply add an "e" after the rep count like this:
+
+`pistol squat` `,` `10e` `,` `2`
+
+## Supported Movements
+
+_full\_body_ includes a list of exercises that each contain the following information: `exercise name`, `movement type`, `primary muscle group`, `secondary muscle group`, `targeted body area`. These are used to generate the text that appears under each one when it comes up in your sequence.
+
+Here is the full list of these exercises:
+
+|         Name         |  Type  |  Primary Group | Secondary Group | Target Area | Requires Equpment? |
+|:--------------------:|:------:|:--------------:|:---------------:|:-----------:|:------------------:|
+| Row                  | Pull   | Latissimus     | Trapezius       | Lower Back  |         Yes        |
+| Dead Hang            | Static | Forearms       | Latissimus      | Arms        |         Yes        |
+| Pullup               | Pull   | Trapezius      | Latissimus      | Upper Back  |         Yes        |
+| Chinup               | Pull   | Biceps         | Latissimus      | Arms        |         Yes        |
+| Narrow Grip Pullup   | Pull   | Pectorals      | Trapezius       | Chest       |         Yes        |
+| Wide Grip Pullup     | Pull   | Latissimus     | Pectorals       | Lower Back  |         Yes        |
+| Leg Raise            | Pull   | Abdominals     | Forearms        | Core        |         Yes        |
+| L-Hang               | Static | Abdominals     | Forearms        | Core        |         Yes        |
+| Around The World     | Pull   | Abdominals     | Obliques        | Core        |         Yes        |
+| Pushup               | Push   | Triceps        | Deltoids        | Arms        |         No         |
+| Wide Pushup          | Push   | Pectorals      | Deltoids        | Chest       |         No         |
+| Diamond Pushup       | Push   | Triceps        | Deltoids        | Arms        |         No         |
+| Military Pushup      | Push   | Deltoids       | Trapezius       | Arms        |         No         |
+| Curl                 | Pull   | Biceps         | Forearms        | Arms        |         Yes        |
+| L-Sit                | Static | Abdominals     | Obliques        | Core        |         No         |
+| Boat Hold            | Static | Abdominals     | Obliques        | Core        |         No         |
+| Boat Twirl           | Pull   | Abdominals     | Obliques        | Core        |         No         |
+| Side Plank           | Static | Obliques       | Abdominals      | Core        |         No         |
+| Plank                | Static | Abdominals     | Deltoids        | Core        |         No         |
+| Pike                 | Push   | Trapezius      | Triceps         | Upper Back  |         No         |
+| Handstand            | Static | Trapezius      | Deltoids        | Upper Back  |         No         |
+| Handstand Pushup     | Push   | Triceps        | Trapezius       | Arms        |         No         |
+| Dip                  | Push   | Triceps        | Deltoids        | Arms        |         No         |
+| Hip Raise            | Lunge  | Hamstrings     | Glutes          | Legs        |         No         |
+| Single Leg Hip Raise | Lunge  | Hamstrings     | Glutes          | Legs        |         No         |
+| Squat                | Squat  | Quadriceps     | Hamstrings      | Legs        |         No         |
+| Pistol Squat         | Squat  | Quadriceps     | Hamstrings      | Legs        |         No         |
+| Jump Squat           | Squat  | Quadriceps     | Hamstrings      | Legs        |         No         |
+| Superman             | Static | Latissimus     | Glutes          | Lower Back  |         No         |
+| Calf Raise           | Squat  | Calves         | Quadriceps      | Legs        |         No         |
+| Jump                 | Squat  | Calves         | Quadriceps      | Legs        |         No         |
+
+These are primarily calisthenic exercises, and therefore _full\_body_ does not include information like weights. If you feel like you want more movements added to this list, or if you strongly want weights to be part of the tracking, please let me know! victor.ivanov.design@gmail.com.
+
+## Obligatory Disclaimer
+
+This application is simply a fun way to add some variety to one's workout. It is not a substitute for anything, and does not guarantee a more efficient workout plan than other options.
+
+Also, the small database of exercises is a result of amateur online research, so if you know about fitness and want to make corrections to exercise names, targeted muscle groups and so on, please let me know at victor.ivanov.design@gmail.com!

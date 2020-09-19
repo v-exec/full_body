@@ -1,0 +1,14 @@
+//please read https://github.com/v-exec/full_body/README.md for documentation
+
+circuit: false
+timer: true
+
+movements:
+row, 20e, 2
+wide pushup, 0, 2
+curl, 8e, 2
+boat twirl, 15e, 2
+side plank, 30e, 1
+pike / handstand, 0 / 30, 2
+single leg hip raise / squat, 30e / 30, 2
+pistol squat, 10e, 2

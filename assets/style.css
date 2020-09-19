@@ -1,0 +1,339 @@
+/* CORE */
+
+:root {
+	--background: #f7f7f7;
+	--bright: #888;
+	--dark: #333;
+	--prettyBright: #ccc;
+	--ultraBright: #ddd;
+	--white: #fff;
+	--radius: 7px;
+}
+
+html {
+	box-sizing: border-box;
+	font-weight: 400;
+	padding: 0;
+	margin: 0;
+	background-color: #000;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	font-family: "Roboto";
+	background-color: #f7f7f7;
+	overflow: hidden;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+::-moz-selection {
+	color: #000;
+	background: #ccc;
+}
+
+::selection {
+	color: #000;
+	background: #ccc;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+	background-color: #f7f7f7;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #bbb;
+}
+
+/* SCREENS */
+
+#main {
+	width: calc(100% - 300px);
+	height: calc(100% - 300px);
+	padding: 150px;
+}
+
+#intro,
+#preparation,
+#exercise,
+#results {
+	display: none;
+	position: absolute;
+	width: calc(100% - 300px);
+	height: calc(100% - 300px);
+	visibility: hidden;
+	transition: opacity 1s ease;
+	opacity: 0;
+}
+
+#intro {
+	display: inline-block;
+	visibility: visible;
+	opacity: 1;
+}
+
+/* DROP */
+
+#drop {
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	max-width: 600px;
+	height: 150px;
+	top: 65%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: var(--ultraBright);
+	border-radius: var(--radius);
+	transition: background-color 0.5s ease;
+}
+
+#dropText,
+#dropFeedback {
+	position: absolute;
+	width: 100%;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 18px;
+	font-weight: 700;
+	color: var(--bright);
+	opacity: 1;
+	transition: opacity 0.5s ease;
+	pointer-events: none;
+}
+
+#dropFeedback {
+	visibility: none;
+	opacity: 0;
+}
+
+/* INTRO */
+
+#introTitle {
+	display: inline-block;
+	width: 100%;
+	font-size: 110px;
+	font-weight: 700;
+	margin-bottom: 40px;
+	color: var(--dark);
+}
+
+#introDescription {
+	display: inline-block;
+	font-size: 20px;
+	color: var(--bright);
+}
+
+/* PREPARATION */
+
+#preparationTitle {
+	display: inline-block;
+	position: absolute;
+	width: 100%;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	font-size: 110px;
+	font-weight: 700;
+	margin-bottom: 40px;
+	color: var(--bright);
+}
+
+#preparationNote {
+	display: inline-block;
+	position: absolute;
+	width: 100%;
+	top: 65%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	font-size: 16px;
+	color: var(--bright);
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.5s ease;
+}
+
+/* EXERCISE */
+
+#movementName {
+	display: inline-block;
+	text-transform: capitalize;
+	width: 60%;
+	font-size: 200px;
+	font-weight: 700;
+	color: var(--dark);
+	margin-bottom: 40px;
+}
+
+#movementDetails {
+	display: inline-block;
+	width: 50%;
+	font-size: 40px;
+	font-weight: 700;
+	color: var(--bright);
+}
+
+#movementNotes {
+	display: inline-block;
+	position: absolute;
+	top: 8%;
+	right: 0;
+	text-align: right;
+	width: 30%;
+	font-size: 20px;
+	color: var(--bright);
+}
+
+#clock {
+	display: inline-block;
+	position: absolute;
+	width: 100px;
+	height: 35px;
+	right: 0;
+	bottom: 60px;
+	text-align: right;
+	width: 20%;
+	font-size: 30px;
+	color: var(--bright);
+}
+
+#nextMovement {
+	display: flex;
+	position: absolute;
+	width: 150px;
+	height: 50px;
+	bottom: -125px;
+	right: 0px;
+	transform: translate(0%, -50%);
+	background-color: var(--ultraBright);
+	border-radius: var(--radius);
+	color: var(--bright);
+	font-size: 18px;
+	font-weight: 700;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.5s ease;
+}
+
+#nextMovement:hover {
+	background-color: var(--prettyBright);
+	cursor: pointer;
+}
+
+/* TRACKER */
+
+#tracker {
+	display: none;
+	visibility: hidden;
+	position: absolute;
+	width: calc(100% - 300px);
+	height: 60px;
+	bottom: 150px;
+	opacity: 0;
+	transition: opacity 0.5s ease;
+}
+
+#progressNumbers {
+	display: inline-block;
+	position: relative;
+	width: 40px;
+	height: 100%;
+	bottom: -42%;
+	transform: translateX(-50%);
+	transition: left 0.5s ease;
+}
+
+#progressFraction,
+#progressPercentage {
+	display: inline-block;
+	position: absolute;
+	font-size: 14px;
+	color: var(--bright);
+	left: 50%;
+	top: 0%;
+	transform: translate(-50%, -50%);
+}
+
+#progressPercentage {
+	top: 100%;
+}
+
+#progressBar,
+#progressFill {
+	position: absolute;
+	width: 100%;
+	height: 10px;
+	bottom: 0;
+	left: 0;
+	background-color: var(--ultraBright);
+	border-radius: var(--radius);
+	z-index: 0;
+}
+
+#progressFill {
+	background-color: var(--bright);
+	width: 0%;
+	z-index: 1;
+	transition: width 0.5s ease;
+}
+
+/* RESULTS */
+
+#resultText {
+	display: inline-block;
+	width: 100%;
+	font-size: 110px;
+	font-weight: 700;
+	margin-bottom: 40px;
+	color: var(--dark);
+}
+
+#resultFinal {
+	display: inline-block;
+	font-size: 20px;
+	margin-bottom: 40px;
+	color: var(--bright);
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 1s ease;
+}
+
+#resultInfo {
+	width: 100%;
+	height: 400px;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 1s ease;
+}
+
+.resultData {
+	display: inline-flex;
+	text-align: center;
+	vertical-align: middle;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	background-color: var(--ultraBright);
+	color: var(--bright);
+	font-size: 16px;
+	font-weight: 700;
+	border-radius: var(--radius);
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-bottom: 20px;
+	padding: 5px;
+	text-transform: capitalize;
+
+	-webkit-user-select: all;
+	-moz-user-select: all;
+	-ms-user-select: all;
+	user-select: all;
+}

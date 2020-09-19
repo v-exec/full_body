@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>full_body</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700">
+	<link rel="stylesheet" type="text/css" href="assets/style.css">
+</head>
+<body>
+	<div id="main">
+		<div id="intro">
+			<span id="introTitle"></span>
+			<br>
+			<span id="introDescription">This is an exercise sequencer that helps keep your workouts varied,<br>
+			and gives you information on time spent on each muscle group.</span>
+			<div id="drop">
+				<span id="dropText">Drag sequence text file here to begin!</span>
+				<span id="dropFeedback">Drop your file!</span>
+			</div>
+		</div>
+
+		<div id="preparation">
+			<span id="preparationTitle"></span>
+			<span id="preparationNote"></span>
+		</div>
+
+		<div id="exercise">
+			<span id="movementName"></span>
+			<span id="movementDetails"></span>
+			<span id="movementNotes"></span>
+			<span id="clock"></span>
+			<a id="nextMovement">Next Exercise</a>
+		</div>
+
+		<div id="results">
+			<span id="resultText"></span>
+			<span id="resultFinal"></span>
+			<div id="resultInfo"></div>
+		</div>
+
+		<div id="tracker">
+			<div id="progressNumbers">
+				<span id="progressFraction"></span>
+				<span id="progressPercentage"></span>
+			</div>
+			<div id="progressFill"></div>
+			<div id="progressBar"></div>
+		</div>
+	</div>
+	<script src="scripts/helpers.js"></script>
+	<script src="scripts/SupportedMovement.js"></script>
+	<script src="scripts/Movement.js"></script>
+
+	<script src="scripts/init.js"></script>
+
+	<script src="scripts/main.js"></script>
+	<script src="scripts/parser.js"></script>
+	<script src="scripts/upload.js"></script>
+</body>
+</html>
