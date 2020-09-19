@@ -3,7 +3,6 @@ function createMovements(moves) {
 	//list of all possible attributes
 	var attributes = [
 	'circuit',
-	'fullbody',
 	'timer',
 	'movements'
 	];
@@ -53,15 +52,13 @@ function createMovements(moves) {
 		//assign value to attribute for slide
 		switch (currentKey) {
 			case 'circuit':
-				circuit = value;
-				break;
-
-			case 'fullbody':
-				fullbody = value;
+				if (value == "true") circuit = true;
+				if (value == "false") circuit = false;
 				break;
 
 			case 'timer':
-				timer = value;
+				if (value == "true") timer = true;
+				if (value == "false") timer = false;
 				break;
 
 			case 'movements':
