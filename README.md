@@ -6,6 +6,7 @@ Not only that, but _full\_body_ helps you stay motivated with a progress tracker
 
 In addition, _full\_body_ tracks time spent on different muscle groups during the exercise and outputs it to the user at the end, meaning you can take that information and easily copy it to a spreadsheet or some other external tool for long-term tracking purposes.
 
+Note: this application is made **exclusively for desktop**.
 More information found on [my site](https://v-os.ca/full_body).
 
 ![image of app](assets/1.png)
