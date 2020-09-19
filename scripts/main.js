@@ -56,7 +56,29 @@ function sequenceMovements() {
 
 function loadMovements() {
 	toggleAppearance(intro, false, 1000, true);
-	toggleAppearance(preparation, true, 1000, true);
+
+	//check for errors
+	var error = false;
+	var errorExercise;
+	for (var i = 0; i < movements.length; i++) {
+		for (var j = 0; j < movements[i].reference.length; j++) {
+			if (movements[i].reference[j] == null) {
+				error = true;
+				errorExercise = movements[i].name[j];
+			}
+		}
+	}
+
+	//display error and stop app
+	if (error) {
+		preparationTitle.innerText = "There seems to be a problem.";
+		preparationNote.innerHTML = "We believe there's an issue with your sequence file. In particular, with the exercise: <b>" + errorExercise + "</b>.<br>Please correct this mistake and try again.";
+		toggleAppearance(preparation, true, 1000, true);
+		setTimeout(function(){
+			toggleAppearance(preparationNote, true, 500);
+		}, 2000);
+		return;
+	}
 
 	preparationTitle.innerText = possibleLoaders[getRandomIntInclusive(0, possibleLoaders.length - 1)];
 	var missingGroups = [];
@@ -72,6 +94,8 @@ function loadMovements() {
 		}
 		preparationNote.innerText = warningNote;
 	}
+
+	toggleAppearance(preparation, true, 1000, true);
 
 	setTimeout(function(){
 		toggleAppearance(preparationNote, true, 500);
@@ -129,10 +153,16 @@ function loadNextMovement() {
 
 			if (sets > 1) details = sets + " sets of "; 
 
-			if (reps == null) details += " until failure.";
+			//take into account singulars and plurals
+			if (reps == null && sets == 1) details += "Until failure.";
+			else if (reps == null) details = details.substring(0, details.length - 3) + " until failure."; //remove "of"
+			else if (move.type[movementIndexes[currentMovement]] == "Static" && reps.includes("e") && reps.substring(0, reps.length -1) == 1) details += reps.substring(0, reps.length -1) + " second on each side.";
 			else if (move.type[movementIndexes[currentMovement]] == "Static" && reps.includes("e")) details += reps.substring(0, reps.length -1) + " seconds on each side.";
+			else if (move.type[movementIndexes[currentMovement]] == "Static" && reps == 1) details += reps + " second.";
 			else if (move.type[movementIndexes[currentMovement]] == "Static") details += reps + " seconds.";
+			else if (reps.includes("e") &&  reps.substring(0, reps.length -1) == 1) details += reps.substring(0, reps.length -1) + " rep on each side.";
 			else if (reps.includes("e")) details += reps.substring(0, reps.length -1) + " reps on each side.";
+			else if (reps == 1) details += reps + " rep.";
 			else details += reps + " reps.";
 
 			movementDetails.innerText = details;

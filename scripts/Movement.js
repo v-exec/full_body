@@ -22,10 +22,15 @@ function Movement(name) {
 		}
 
 		//find referenced exercises
+		self.reference = new Array(self.name.length);
+		for (var i = 0; i < self.reference.length; i++) {
+			self.reference[i] = null;
+		}
+
 		for (var i = 0; i < self.name.length; i++) {
 			for (var j = 0; j < supportedMovements.length; j++) {
 				if (self.name[i].toLowerCase() == supportedMovements[j].name.toLowerCase()) {
-					self.reference.push(j);
+					self.reference[i] = j;
 					self.type.push(supportedMovements[j].type);
 					self.primary.push(supportedMovements[j].primary);
 					self.secondary.push(supportedMovements[j].secondary);
