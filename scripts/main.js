@@ -126,14 +126,16 @@ function loadNextMovement() {
 			return;
 		}
 
-		//unload content
-		movementName.innerText = '';
-		movementDetails.innerText = '';
-		movementNotes.innerText = '';
-		if (timer) {
-			timePerMovement.push(time);
-			time = 0;
-			clearInterval(timeInterval);
+		//unload content (on everything but the first load)
+		if (currentMovement != 0) {
+			movementName.innerText = '';
+			movementDetails.innerText = '';
+			movementNotes.innerText = '';
+			if (timer) {
+				timePerMovement.push(time);
+				time = 0;
+				clearInterval(timeInterval);
+			}
 		}
 
 		//populate exercise screen
@@ -263,7 +265,8 @@ function loadResults() {
 			var amount = 0;
 
 			for (var j = 0; j < movements.length; j++) {
-				if (movements[j].primary[movementIndexes[j]] == muscleGroups[i]) amount += timePerMovement[j];	
+				if (movements[j].primary[movementIndexes[j]] == muscleGroups[i]) amount += timePerMovement[j];
+				if (movements[j].secondary[movementIndexes[j]] == muscleGroups[i]) amount += timePerMovement[j];
 			}
 
 			var t = document.createElement("SPAN");
