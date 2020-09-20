@@ -30,8 +30,6 @@ function createMovements(moves) {
 					currentKey = attributes[j];
 					value = moves[i].substring(currentKey.length + 1, moves[i].length);
 					value = value.trim();
-					//turn into boolean
-					value = (value == 'true');
 				}
 			}
 		} else {

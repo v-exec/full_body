@@ -250,26 +250,6 @@ function loadResults() {
 	if (timer) {
 		resultFinal.innerText = possibleResultFinalsTimer[getRandomIntInclusive(0, possibleResultFinalsTimer.length - 1)];
 
-		//time spent per exercise
-		for (var i = 0; i < movements.length; i++) {
-			var t = document.createElement("SPAN");
-			t.textContent = movements[i].name[movementIndexes[i]];
-			t.className = "resultData";
-			t.style.width = "calc(" + (100.0 / movements.length) + "% - 20px)";
-			resultInfo.append(t);
-		}
-
-		for (var i = 0; i < movements.length; i++) {
-			var t = document.createElement("SPAN");
-			var d = new Date(0);
-			d.setSeconds(timePerMovement[i]);
-			var tString = d.toISOString().substr(14, 5);
-			t.textContent = tString;
-			t.className = "resultData";
-			t.style.width = "calc(" + (100.0 / movements.length) + "% - 20px)";
-			resultInfo.append(t);
-		}
-
 		//time spent per muscle
 		for (var i = 0; i < muscleGroups.length; i++) {
 			var t = document.createElement("SPAN");
