@@ -94,6 +94,7 @@ Here is the full list of these exercises:
 | Dip                  | Push   | Triceps        | Deltoids        | Arms        |         No         |
 | Hip Raise            | Lunge  | Hamstrings     | Glutes          | Legs        |         No         |
 | Single Leg Hip Raise | Lunge  | Hamstrings     | Glutes          | Legs        |         No         |
+| Lunge                | Lunge  | Hamstrings     | Glutes          | Legs        |         No         |
 | Squat                | Squat  | Quadriceps     | Hamstrings      | Legs        |         No         |
 | Pistol Squat         | Squat  | Quadriceps     | Hamstrings      | Legs        |         No         |
 | Jump Squat           | Squat  | Quadriceps     | Hamstrings      | Legs        |         No         |

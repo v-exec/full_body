@@ -62,6 +62,7 @@ supportedMovements.push(new SupportedMovement("Handstand Pushup", "Push", "Trice
 supportedMovements.push(new SupportedMovement("Dip", "Push", "Triceps", "Deltoids", "Arms", "No"));
 supportedMovements.push(new SupportedMovement("Hip Raise", "Lunge", "Hamstrings", "Glutes", "Legs", "No"));
 supportedMovements.push(new SupportedMovement("Single Leg Hip Raise", "Lunge", "Hamstrings", "Glutes", "Legs", "No"));
+supportedMovements.push(new SupportedMovement("Lunge", "Lunge", "Hamstrings", "Glutes", "Legs", "No"));
 supportedMovements.push(new SupportedMovement("Squat", "Squat", "Quadriceps", "Hamstrings", "Legs", "No"));
 supportedMovements.push(new SupportedMovement("Pistol Squat", "Squat", "Quadriceps", "Hamstrings", "Legs", "No"));
 supportedMovements.push(new SupportedMovement("Jump Squat", "Squat", "Quadriceps", "Hamstrings", "Legs", "No"));
