@@ -236,6 +236,8 @@ function loadNextMovement() {
 		//offset exercise clock
 		var startSeconds = seconds;
 
+		movementClock.style.color = "var(--bright)";
+
 		//style when used as timer for timed movement
 		var isTimed = false;
 		var isSymmetric = false;
