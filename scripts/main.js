@@ -246,12 +246,14 @@ function loadNextMovement() {
 		var previousSecond = 0;
 
 		if (move.type[movementIndexes[currentMovement]] == "Static") isTimed = true;
-		if (move.type[movementIndexes[currentMovement]] != "Stretch" && move.reps[movementIndexes[currentMovement]].includes("e")) isSymmetric = true;
+		if (move.type[movementIndexes[currentMovement]] != "Stretch") {
+			if (move.reps[movementIndexes[currentMovement]].includes("e")) isSymmetric = true;
+		}
 
 		if (isTimed) {
 			startSeconds += 10;
-			amountOfTime = reps.substring(0, reps.length -1);
-			if (isSymmetric) amountOfTime *= 2;
+			if (isSymmetric) amountOfTime = reps.substring(0, reps.length -1) * 2;
+			else amountOfTime = reps;
 		}
 		
 		timeInterval = setInterval(function() {
