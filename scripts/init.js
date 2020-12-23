@@ -120,7 +120,6 @@ var totalSeconds = 0;
 var seconds = 0;
 
 var timeInterval;
-var clockInterval;
 
 //flavor text
 var possibleIntros = [

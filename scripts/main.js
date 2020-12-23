@@ -126,7 +126,7 @@ function loadMovements() {
 
 		//start clock
 		var startSeconds = totalSeconds;
-		clockInterval = setInterval(function() {
+		setInterval(function() {
 			seconds = totalSeconds - startSeconds;
 			var str = formatTime(seconds, true);
 			totalClock.innerText = str;
@@ -248,7 +248,7 @@ function loadNextMovement() {
 		var previousSecond = 0;
 
 		if (move.type[movementIndexes[currentMovement]] == "Static") isTimed = true;
-		if (move.type[movementIndexes[currentMovement]] != "Stretch") {
+		if (move.type[movementIndexes[currentMovement]] != "Stretch" && move.reps[movementIndexes[currentMovement]] != null) {
 			if (move.reps[movementIndexes[currentMovement]].includes("e")) isSymmetric = true;
 		}
 
@@ -315,13 +315,9 @@ function loadResults() {
 	resultFinal.innerText = possibleResultStarts[getRandomIntInclusive(0, possibleResultStarts.length - 1)] + " " + possibleResultFinals[getRandomIntInclusive(0, possibleResultFinals.length - 1)];
 
 	toggleAppearance(results, true, 1000, true);
-	clearInterval(clockInterval);
+	paused = true;
 
 	setTimeout(function() {
 		toggleAppearance(resultFinal, true, 1000);
 	}, 2000);
-
-	setTimeout(function() {
-		toggleAppearance(resultInfo, true, 1000);
-	}, 3000);
 }
