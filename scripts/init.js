@@ -13,8 +13,11 @@ var preparationTitle = document.getElementById('preparationTitle');
 var preparationNote = document.getElementById('preparationNote');
 var movementName = document.getElementById('movementName');
 var movementDetails = document.getElementById('movementDetails');
+var timedExerciseTimer = document.getElementById('timedExerciseTimer');
 var movementNotes = document.getElementById('movementNotes');
-var clock = document.getElementById('clock');
+var movementClock = document.getElementById('movementClock');
+var totalClock = document.getElementById('totalClock');
+var pauseTimer = document.getElementById('pauseTimer');
 var nextMovement = document.getElementById('nextMovement');
 var progressNumbers = document.getElementById('progressNumbers');
 var progressFraction = document.getElementById('progressFraction');
@@ -26,8 +29,12 @@ var resultFinal = document.getElementById('resultFinal');
 var drop = document.getElementById('drop');
 var dropFeedback = document.getElementById('dropFeedback');
 
+var shortTone = document.getElementById('shortTone');
+var longTone = document.getElementById('longTone');
+
 //flags
 var animating = false;
+var paused = false;
 
 //data
 
@@ -102,16 +109,18 @@ for (var i = 0; i < muscleGroups.length; i++) {
 
 //settings
 var circuit = false;
-var timer = true;
 
 //holds user movements
 var movementStrings = [];
 var movements = [];
 var currentMovement = 0;
-var timePerMovement = [];
 var movementIndexes = [];
-var time = 0;
+
+var totalSeconds = 0;
+var seconds = 0;
+
 var timeInterval;
+var clockInterval;
 
 //flavor text
 var possibleIntros = [
@@ -211,7 +220,7 @@ var possiblePrimaryGroups = [
 
 var possibleSecondaryGroups = [
 "A more minor effort is being spent by your",
-"A smaller group of muscles involved is this movement are the ",
+"A smaller group of muscles involved is this movement are the",
 "A secondary group of muscles aids this motion, mainly the",
 "A few muscles take an additional role in this movement, notably the"
 ];
@@ -226,14 +235,15 @@ var possibleResultTitles = [
 "Awesome work!"
 ];
 
-var possibleResultFinalsNoTimer = [
-"You did great! See you next time.",
-"Well done! Looking forward to the next one.",
-"Another workout finished! Already excited for the next."
+var possibleResultStarts = [
+"Fantastic!",
+"Another workout finished!",
+"Well done!",
+"You did great!"
 ];
 
-var possibleResultFinalsTimer = [
-"You did great! Here are your results (in minutes):",
-"Well done! Here are your stats (in minutes):",
-"Another workout finished! Here's your data (in minutes):"
+var possibleResultFinals = [
+"See you next time.",
+"Looking forward to the next one.",
+"Already excited for the next.",
 ];

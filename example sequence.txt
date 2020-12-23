@@ -1,7 +1,6 @@
 //please read https://github.com/v-exec/full_body/README.md for documentation
 
 circuit: false
-timer: true
 
 movements:
 row, 20e, 2

@@ -29,14 +29,15 @@
 			<span id="movementName"></span>
 			<span id="movementDetails"></span>
 			<span id="movementNotes"></span>
-			<span id="clock"></span>
+			<span id="timedExerciseTimer"></span>
+			<span id="movementClock"></span>
+			<a id="pauseTimer">Pause Timer</a>
 			<a id="nextMovement">Next Exercise</a>
 		</div>
 
 		<div id="results">
 			<span id="resultText"></span>
 			<span id="resultFinal"></span>
-			<div id="resultInfo"></div>
 		</div>
 
 		<div id="tracker">
@@ -46,8 +47,18 @@
 			</div>
 			<div id="progressFill"></div>
 			<div id="progressBar"></div>
+			<span id="totalClock"></span>
 		</div>
 	</div>
+
+	<audio id="shortTone">
+		<source src="assets/ShortTone.wav" type="audio/wav">
+	</audio>
+
+	<audio id="longTone">
+		<source src="assets/LongTone.wav" type="audio/wav">
+	</audio>
+
 	<script src="scripts/helpers.js"></script>
 	<script src="scripts/SupportedMovement.js"></script>
 	<script src="scripts/Movement.js"></script>

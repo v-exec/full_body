@@ -4,7 +4,7 @@ _full\_body_ is an exercise sequencer. This simple web application is meant to p
 
 Not only that, but _full\_body_ helps you stay motivated with a progress tracker, and lots of flavor text to keep you engaged. Each exercise also has text associated with it that describes the exercise and keeps you focused and mindful of your form.
 
-In addition, _full\_body_ tracks time spent on different muscle groups during the exercise and outputs it to the user at the end, meaning you can take that information and easily copy it to a spreadsheet or some other external tool for long-term tracking purposes.
+In addition, _full\_body_ includes a total timer for the entire session, a passive timer for each exercise, and a timer with countdown and visual feedback for timed exercises.
 
 Note: this application is made **exclusively for desktop**.
 More information found on [my site](https://v-os.ca/full_body).
@@ -22,11 +22,7 @@ An example `.txt` file is found in the root folder, named `example sequence.txt`
 
 ## Options
 
-When creating your text file, a few options exist to cater the experience of _full\_body_ to your needs. All of these options can be omitted from the text file, the default value is assumed.
-
-`circuit`, by default `false`, is an option which allows you to perform your sets in a randomized order. If set to `true`, then an exercise with multiple sets will have those sets appear at random points in the sequence. If set to `false`, then an exercise with multiple sets will have all of its sets done in order.
-
-`timer`, by default `true`, is a flag denoting you'd like to time your exercises. If set to `true`, a timer will appear during each movement, and in the end, a summary of your times will be shown. If set to `false`, no timer will appear, and results will not be tracked.
+When creating your text file, you can include `circuit` (`false` by default), which allows you to perform your sets in a randomized order. If set to `true`, then an exercise with multiple sets will have those sets appear at random points in the sequence. If set to `false`, then an exercise with multiple sets will have all of its sets done in order.
 
 ## Formatting
 

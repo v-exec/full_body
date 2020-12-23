@@ -1,6 +1,25 @@
+//functionality for next exercise button
 nextMovement.addEventListener('click', function() {
 	if (!animating) loadNextMovement();
 }, false);
+
+//functionality for pause button
+pauseTimer.addEventListener('click', function() {
+	paused = !paused;
+	if (paused) {
+		pauseTimer.innerText = "Resume Timer";
+		pauseTimer.style.backgroundColor = "var(--prettyBright)";
+	}
+	else {
+		pauseTimer.innerText = "Pause Timer";
+		pauseTimer.removeAttribute("style");
+	}
+}, false);
+
+//master timer
+setInterval(function() {
+	if (!paused) totalSeconds += 1;
+}, 1000);
 
 generateTitle();
 
@@ -104,6 +123,14 @@ function loadMovements() {
 	setTimeout(function(){
 		toggleAppearance(preparation, false, 1000, true);
 		loadNextMovement();
+
+		//start clock
+		var startSeconds = totalSeconds;
+		clockInterval = setInterval(function() {
+			seconds = totalSeconds - startSeconds;
+			var str = formatTime(seconds, true);
+			totalClock.innerText = str;
+		}, 100);
 	}, 5000);
 }
 
@@ -131,11 +158,7 @@ function loadNextMovement() {
 			movementName.innerText = '';
 			movementDetails.innerText = '';
 			movementNotes.innerText = '';
-			if (timer) {
-				timePerMovement.push(time);
-				time = 0;
-				clearInterval(timeInterval);
-			}
+			clearInterval(timeInterval);
 		}
 
 		//populate exercise screen
@@ -210,18 +233,55 @@ function loadNextMovement() {
 
 		movementNotes.innerText = notes;
 
-		//add clock
-		if (timer) {
-			var start = Date.now();
-			timeInterval = setInterval(function() {
-				var delta = Date.now() - start;
-				time = Math.floor(delta / 1000);
-				var t = new Date(0);
-				t.setSeconds(time);
-				var tString = t.toISOString().substr(14, 5);
-				clock.innerText = tString;
-			}, 100);
+		//offset exercise clock
+		var startSeconds = seconds;
+
+		//style when used as timer for timed movement
+		var isTimed = false;
+		var isSymmetric = false;
+		var playedStartSound = false;
+		var playedSwitchSound = false;
+		var playedEndSound = false;
+		var amountOfTime = 0;
+		var previousSecond = 0;
+
+		if (move.type[movementIndexes[currentMovement]] == "Static") isTimed = true;
+		if (move.type[movementIndexes[currentMovement]] != "Stretch" && move.reps[movementIndexes[currentMovement]].includes("e")) isSymmetric = true;
+
+		if (isTimed) {
+			startSeconds += 10;
+			amountOfTime = reps.substring(0, reps.length -1);
+			if (isSymmetric) amountOfTime *= 2;
 		}
+		
+		timeInterval = setInterval(function() {
+			var time = seconds - startSeconds;
+
+			if (isTimed) {
+				if (time < 0) movementClock.style.color = "var(--timerRed)";
+				else if (time < amountOfTime) movementClock.style.color = "var(--timerYellow)";
+				else movementClock.style.color = "var(--timerGreen)";
+
+				if (time < 0 && previousSecond != time && time != -10) {
+					shortTone.pause();
+					shortTone.currentTime = 0;
+					previousSecond = time;
+					shortTone.play();
+				} else if (time == 0 && !playedStartSound) {
+					longTone.play();
+					playedStartSound = true;
+				} else if (time == (amountOfTime / 2) && isSymmetric && !playedSwitchSound) {
+					longTone.play();
+					playedSwitchSound = true;
+				} else if (time == amountOfTime && !playedEndSound) {
+					longTone.play();
+					playedEndSound = true;
+				}
+			}
+
+			var str = formatTime(time, false);
+			movementClock.innerText = str;
+		}, 10);
 
 		//load screen
 		if (currentMovement == 0) toggleAppearance(exercise, true, 1000, true);
@@ -248,67 +308,10 @@ function updateTracker() {
 
 function loadResults() {
 	resultText.innerText = possibleResultTitles[getRandomIntInclusive(0, possibleResultTitles.length - 1)];
-
-	if (timer) {
-		resultFinal.innerText = possibleResultFinalsTimer[getRandomIntInclusive(0, possibleResultFinalsTimer.length - 1)];
-
-		//time spent per muscle
-		for (var i = 0; i < muscleGroups.length; i++) {
-			var t = document.createElement("SPAN");
-			t.textContent = muscleGroups[i];
-			t.className = "resultData";
-			t.style.width = "calc(" + (100.0 / muscleGroups.length) + "% - 20px)";
-			resultInfo.append(t);
-		}
-
-		for (var i = 0; i < muscleGroups.length; i++) {
-			var amount = 0;
-
-			for (var j = 0; j < movements.length; j++) {
-				if (movements[j].primary[movementIndexes[j]] == muscleGroups[i]) amount += timePerMovement[j];
-				if (movements[j].secondary[movementIndexes[j]] == muscleGroups[i]) amount += timePerMovement[j];
-			}
-
-			var t = document.createElement("SPAN");
-			var d = new Date(0);
-			d.setSeconds(amount);
-			var tString = d.toISOString().substr(14, 5);
-			t.textContent = tString;
-			t.className = "resultData";
-			t.style.width = "calc(" + (100.0 / muscleGroups.length) + "% - 20px)";
-			resultInfo.append(t);
-		}
-
-		//time spent per target area
-		for (var i = 0; i < targetAreas.length; i++) {
-			var t = document.createElement("SPAN");
-			t.textContent = targetAreas[i];
-			t.className = "resultData";
-			t.style.width = "calc(" + (100.0 / targetAreas.length) + "% - 20px)";
-			resultInfo.append(t);
-		}
-
-		for (var i = 0; i < targetAreas.length; i++) {
-			var amount = 0;
-
-			for (var j = 0; j < movements.length; j++) {
-				if (movements[j].target[movementIndexes[j]] == targetAreas[i]) amount += timePerMovement[j];	
-			}
-
-			var t = document.createElement("SPAN");
-			var d = new Date(0);
-			d.setSeconds(amount);
-			var tString = d.toISOString().substr(14, 5);
-			t.textContent = tString;
-			t.className = "resultData";
-			t.style.width = "calc(" + (100.0 / targetAreas.length) + "% - 20px)";
-			resultInfo.append(t);
-		}
-	} else {
-		resultFinal.innerText = possibleResultFinalsNoTimer[getRandomIntInclusive(0, possibleResultFinalsNoTimer.length - 1)];
-	}
+	resultFinal.innerText = possibleResultStarts[getRandomIntInclusive(0, possibleResultStarts.length - 1)] + " " + possibleResultFinals[getRandomIntInclusive(0, possibleResultFinals.length - 1)];
 
 	toggleAppearance(results, true, 1000, true);
+	clearInterval(clockInterval);
 
 	setTimeout(function() {
 		toggleAppearance(resultFinal, true, 1000);

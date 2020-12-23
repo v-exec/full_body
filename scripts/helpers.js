@@ -38,3 +38,29 @@ function shuffle(a) {
 	}
 	return a;
 }
+
+function formatTime(s, includeHours) {
+	//save negative
+	var negative = false;
+	if (s < 0) {
+		negative = true;
+		s = Math.abs(s);
+	}
+
+	var hours = Math.floor(s / 3600);
+	var minutes = Math.floor((s - (hours * 3600)) / 60);
+	var rest = s - ((hours * 3600) + (minutes * 60));
+
+	hours = hours.toLocaleString(undefined, {minimumIntegerDigits: 2});
+	minutes = minutes.toLocaleString(undefined, {minimumIntegerDigits: 2});
+	rest = rest.toLocaleString(undefined, {minimumIntegerDigits: 2});
+
+	var str = "";
+
+	if (negative) str += "-";
+
+	if (includeHours) str += hours + ":" + minutes + ":" + rest;
+	else str += minutes + ":" + rest;
+
+	return str;
+}
