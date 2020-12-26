@@ -104,10 +104,10 @@ Here is the full list of these exercises:
 
 These are primarily calisthenic exercises, and therefore _full\_body_ does not include information like weights.
 
-It's important ot note that exercises not on this list will _not_ work. You will recieve an error message when uploading your `.txt` which will describe which exercises are not supported. If you feel like you want more movements added to this list, please let me know, and I'll be happy to add them! Just email me [here](mailto:victor.ivanov.design@gmail.com).
+It's important to note that exercises not on this list will _not_ work. You will recieve an error message when uploading your `.txt` file which will describe which exercises are not supported. If you feel like you want more movements added to this list, please let me know, and I'll be happy to add them! Just email me [here](mailto:victor.ivanov.design@gmail.com).
 
 ## Disclaimer
 
 This application is simply a fun way to add some variety to one's workout. It is not a substitute for anything, and does not guarantee a more efficient workout plan than other options.
 
-Also, the small database of exercises is a result of my amateur online research. I am in no ways an expert, and am fairly certain that some of the technical information in my generated flavor text for each exercise is to some degree inaccurate. So if you know about fitness and want to make corrections to exercise names, targeted muscle groups, or the generated text descriptions please [email me](victor.ivanov.design@gmail.com) and I'll incorporate your feedback!
+Also, the small database of exercises is a result of my amateur online research. I am in no ways an expert, and am fairly certain that some of the technical information in my generated flavor text for each exercise is to some degree inaccurate. So if you know about fitness and want to make corrections to exercise names, targeted muscle groups, or the generated text descriptions please [email me](mailto:victor.ivanov.design@gmail.com) and I'll incorporate your feedback!
