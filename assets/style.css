@@ -196,6 +196,7 @@ body {
 }
 
 #movementClock,
+#pausedClock,
 #totalClock {
 	display: inline-block;
 	position: absolute;
@@ -204,7 +205,7 @@ body {
 	bottom: 60px;
 	width: 20%;
 	font-size: 30px;
-	color: var(--bright);
+	color: var(--ultraBright);
 }
 
 #movementClock {
@@ -212,9 +213,22 @@ body {
 	text-align: left;
 }
 
-#totalClock {
+#pausedClock {
+	bottom: 100px;
+}
+
+#pausedClock::before {
+	content: "+ ";
+}
+
+#totalClock,
+#pausedClock {
 	right: 0;
 	text-align: right;
+}
+
+#totalClock {
+	color: var(--bright);
 }
 
 #nextMovement,

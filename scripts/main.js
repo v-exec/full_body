@@ -16,11 +16,6 @@ pauseTimer.addEventListener('click', function() {
 	}
 }, false);
 
-//master timer
-setInterval(function() {
-	if (!paused) totalSeconds += 1;
-}, 1000);
-
 generateTitle();
 
 function generateTitle() {
@@ -124,12 +119,20 @@ function loadMovements() {
 		toggleAppearance(preparation, false, 1000, true);
 		loadNextMovement();
 
-		//start clock
-		var startSeconds = totalSeconds;
+		//master timer
 		setInterval(function() {
-			seconds = totalSeconds - startSeconds;
-			var str = formatTime(seconds, true);
+			if (!finished) {
+				if (paused) pausedSeconds += 1;
+				else activeSeconds += 1;
+			}
+		}, 1000);
+
+		//start clocks
+		setInterval(function() {
+			var str = formatTime(activeSeconds, true);
 			totalClock.innerText = str;
+			str = formatTime(pausedSeconds, false);
+			pausedClock.innerText = str;
 		}, 100);
 	}, 5000);
 }
@@ -234,9 +237,9 @@ function loadNextMovement() {
 		movementNotes.innerText = notes;
 
 		//offset exercise clock
-		var startSeconds = seconds;
+		var startSeconds = activeSeconds;
 
-		movementClock.style.color = "var(--bright)";
+		movementClock.style.color = "var(--ultraBright)";
 
 		//style when used as timer for timed movement
 		var isTimed = false;
@@ -259,7 +262,7 @@ function loadNextMovement() {
 		}
 		
 		timeInterval = setInterval(function() {
-			var time = seconds - startSeconds;
+			var time = activeSeconds - startSeconds;
 
 			if (isTimed) {
 				if (time < 0) movementClock.style.color = "var(--timerRed)";
@@ -315,7 +318,7 @@ function loadResults() {
 	resultFinal.innerText = possibleResultStarts[getRandomIntInclusive(0, possibleResultStarts.length - 1)] + " " + possibleResultFinals[getRandomIntInclusive(0, possibleResultFinals.length - 1)];
 
 	toggleAppearance(results, true, 1000, true);
-	paused = true;
+	finished = true;
 
 	setTimeout(function() {
 		toggleAppearance(resultFinal, true, 1000);

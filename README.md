@@ -4,7 +4,7 @@ _full\_body_ is an exercise sequencer. This simple web application is meant to p
 
 Not only that, but _full\_body_ helps you stay motivated with a progress tracker, and lots of flavor text to keep you engaged. Each exercise also has text associated with it that describes the exercise and keeps you focused and mindful of your form.
 
-In addition, _full\_body_ includes a total timer for the entire session, a passive timer for each exercise, and a timer with countdown and visual feedback for timed exercises.
+In addition, _full\_body_ includes a total clock for the entire session, a clock for amount of time paused, a passive clock for each exercise, and a timer with countdown and visual feedback for timed exercises.
 
 Note: this application is made **exclusively for desktop**.
 More information found on [my site](https://v-os.ca/full_body).

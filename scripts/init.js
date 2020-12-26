@@ -16,6 +16,7 @@ var movementDetails = document.getElementById('movementDetails');
 var timedExerciseTimer = document.getElementById('timedExerciseTimer');
 var movementNotes = document.getElementById('movementNotes');
 var movementClock = document.getElementById('movementClock');
+var pausedClock = document.getElementById('pausedClock');
 var totalClock = document.getElementById('totalClock');
 var pauseTimer = document.getElementById('pauseTimer');
 var nextMovement = document.getElementById('nextMovement');
@@ -35,6 +36,7 @@ var longTone = document.getElementById('longTone');
 //flags
 var animating = false;
 var paused = false;
+var finished = false;
 
 //data
 
@@ -116,8 +118,8 @@ var movements = [];
 var currentMovement = 0;
 var movementIndexes = [];
 
-var totalSeconds = 0;
-var seconds = 0;
+var activeSeconds = 0;
+var pausedSeconds = 0;
 
 var timeInterval;
 
