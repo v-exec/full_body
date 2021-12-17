@@ -248,6 +248,7 @@ function loadNextMovement() {
 		var playedSwitchSound = false;
 		var playedEndSound = false;
 		var amountOfTime = 0;
+		var checkpointTime = 0;
 		var previousSecond = 0;
 
 		if (move.type[movementIndexes[currentMovement]] == "Static") isTimed = true;
@@ -257,8 +258,16 @@ function loadNextMovement() {
 
 		if (isTimed) {
 			startSeconds += 10;
-			if (isSymmetric) amountOfTime = reps.substring(0, reps.length -1) * 2;
-			else amountOfTime = reps;
+
+			if (isSymmetric) {
+				amountOfTime = reps.substring(0, reps.length -1) * 2;
+				checkpointTime = reps.substring(0, reps.length -1);
+			} else {
+				amountOfTime = reps;
+				checkpointTime = reps;
+			}
+
+			amountOfTime *= sets;
 		}
 		
 		timeInterval = setInterval(function() {
@@ -269,17 +278,28 @@ function loadNextMovement() {
 				else if (time < amountOfTime) movementClock.style.color = "var(--timerYellow)";
 				else movementClock.style.color = "var(--timerGreen)";
 
+				//play countdown tones
 				if (time < 0 && previousSecond != time && time != -10) {
 					shortTone.pause();
 					shortTone.currentTime = 0;
 					previousSecond = time;
 					shortTone.play();
+
+				//play start sound
 				} else if (time == 0 && !playedStartSound) {
 					longTone.play();
 					playedStartSound = true;
-				} else if (time == (amountOfTime / 2) && isSymmetric && !playedSwitchSound) {
+
+				//play checkpoint sound
+				} else if (time % checkpointTime == 0 && !playedSwitchSound && time != amountOfTime && time > 0 && !playedEndSound) {
 					longTone.play();
 					playedSwitchSound = true;
+
+				//reset checkpoint sound
+				} else if (time % checkpointTime != 0 && playedSwitchSound) {
+					playedSwitchSound = false;
+
+				//play end sound
 				} else if (time == amountOfTime && !playedEndSound) {
 					longTone.play();
 					playedEndSound = true;
