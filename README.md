@@ -8,8 +8,6 @@ In addition, _full\_body_ includes various clocks for timing the total session t
 
 And of course, it works on mobile.
 
-Note: 
-
 Additional documentation can be found on [my site](https://v-os.ca/full_body).
 
 ![image of app](assets/1.png)
