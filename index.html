@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -9,20 +10,30 @@
 </head>
 <body>
 	<div id="main">
+		<span id="info">info</span>
+		<div id="infoBox">
+			<p id="infoTitle">Full_Body, created by vi from <a class="infoLink" href="https://v-os.ca">V-OS</a>.</p>
+			<p id="infoText">Full_Body is a web application made to help organize and sequence fitness exercises in the effort of ultimately making my time exercising more engaging. It supports a large number of exercises that require little to no equipment since I quite enjoy calisthenics-oriented workouts. It also has a variety of features for how it should sequence your workouts which should hopefully make this useful for my future use and that of anyone else who would like to use this app.
+			<br>
+			<br>
+			This application uses cookies to save your workout plan, meaning that in the event that your browser or computer changes, or deletes these cookies, your workout will unfortunately be erased. This is my way of avoiding using a database while still giving different users the ability to have a unique experience.
+			<br>
+			<br>
+			I hope you enjoy using this as much as I do! If you'd like to know more about this app, please check out the <a class="infoLink" href="https://github.com/v-exec/full_body">github page</a>.
+			<br>
+			<br>
+			If you'd like to know more about my other work, you can also take a look at my website, <a class="infoLink" href="https://v-os.ca">v-os</a>.
+		</div>
+
 		<div id="intro">
 			<span id="introTitle"></span>
 			<br>
-			<span id="introDescription">This is an exercise sequencer that helps keep your workouts varied,<br>
-			and gives you information on time spent on each muscle group.</span>
-			<div id="drop">
-				<span id="dropText">Drag sequence text file here to begin!</span>
-				<span id="dropFeedback">Drop your file!</span>
-			</div>
-		</div>
-
-		<div id="preparation">
-			<span id="preparationTitle"></span>
-			<span id="preparationNote"></span>
+			<span id="introDescription">Full_Body is an exercise sequencer that helps keep your workouts varied,<br>
+			and makes exercising easier and more motivating through time tracking and a pleasant interface.</span>
+			<div id="exerciseList"></div>
+			<div id="optionsList"></div>
+			<span id="optionsPlan">Options</span>
+			<span id="start">Start</span>
 		</div>
 
 		<div id="exercise">
@@ -30,8 +41,8 @@
 			<span id="movementDetails"></span>
 			<span id="movementNotes"></span>
 			<span id="movementClock"></span>
-			<a id="pauseTimer">Pause Timer</a>
-			<a id="nextMovement">Next Exercise</a>
+			<span id="pauseTimer">Pause Timer</span>
+			<span id="nextMovement">Next Exercise</span>
 		</div>
 
 		<div id="results">
@@ -59,14 +70,10 @@
 		<source src="assets/LongTone.wav" type="audio/wav">
 	</audio>
 
-	<script src="scripts/helpers.js"></script>
-	<script src="scripts/SupportedMovement.js"></script>
-	<script src="scripts/Movement.js"></script>
-
 	<script src="scripts/init.js"></script>
-
+	<script src="scripts/ui.js"></script>
+	<script src="scripts/helpers.js"></script>
+	<script src="scripts/Movement.js"></script>
 	<script src="scripts/main.js"></script>
-	<script src="scripts/parser.js"></script>
-	<script src="scripts/upload.js"></script>
 </body>
 </html>
