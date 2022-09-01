@@ -10,9 +10,9 @@ And of course, it works on mobile.
 
 Additional documentation can be found on [my site](https://v-os.ca/full_body).
 
-![image of app](assets/1.png)
-![image of app](assets/2.png)
-![image of app](assets/3.png)
+![image of app](publicity/1.png)
+![image of app](publicity/2.png)
+![image of app](publicity/3.png)
 
 ## How To Use
 
@@ -25,19 +25,6 @@ _full\_body_ includes a list of exercises that each contain the following inform
 
 If you feel like you want more movements added to the existing list, please let me know, and I'll be happy to add them! Just email me [here](mailto:victor.ivanov.design@gmail.com).
 
-## To Do
-
-- Make dropdowns nicer.
-- Add break timer.
-- Add up-next view.
-- Add options menu.
-- Add options button functionality.
-- Add info button functionality.
-- Add delete option for each exercise.
-- Make scrollbar nicer.
-- Add data tracking.
-- Make mobile friendly.
-
 ## Disclaimers
 
 - This application **uses cookies to save your workout plan**, and therefore may lose your data in the event you clear your cookies.
@@ -45,3 +32,7 @@ If you feel like you want more movements added to the existing list, please let 
 - This application is a fun way to add some variety to one's workout, but it is **not a substitue for professionally offered advice**, and does not claim to be more efficient or performative than any other workout approach.
 
 - The small database of exercises is a result of my amateur online research. I am in no ways an expert, and am fairly certain that some of my generated flavor text for each exercise is to some degree inaccurate. So if you know about fitness and want to make corrections to exercise names, targeted muscle groups, or the generated text descriptions please [email me](mailto:victor.ivanov.design@gmail.com) and I'll be happy to incorporate your feedback!
+
+## To Do
+
+- Add statistics tracking.

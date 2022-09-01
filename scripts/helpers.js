@@ -4,25 +4,18 @@ function getRandomIntInclusive(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function toggleAppearance(element, appearance, milliseconds, erase=false) {
+function toggleAppearance(element, appearance, milliseconds) {
 	animating = true;
 
 	if (appearance) {
-		if (erase) {
-			element.style.display = 'inline-block';
-			setTimeout(function(){
-				element.style.visibility = 'visible';
-				element.style.opacity = 1;
-			}, milliseconds);
-		} else {
-			element.style.visibility = 'visible';
+		element.style.display = 'inline-block';
+		setTimeout(function(){
 			element.style.opacity = 1;
-		}
+		}, courtesyTime);
 	} else {
 		element.style.opacity = 0;
 		setTimeout(function(){
-			element.style.visibility = 'hidden';
-			if (erase) element.style.display = 'none';
+			element.style.display = 'none';
 		}, milliseconds);
 	}
 
@@ -65,17 +58,78 @@ function formatTime(s, includeHours) {
 	return str;
 }
 
-function saveProfileInCookie(workout, circuit, breakFrequency, breakDuration, stretches, infoType, muscleGroupsWarning) {
+function createDetails(mov) {
+	var details = '';
+	var reps = mov.reps;
+	var repType = mov.repType;
+	var sets = mov.sets;
+
+	if (sets > 1) details = sets + ' sets of ';
+
+	//take into account singulars and plurals
+	if (reps == 0) details += 'Until failure.';
+	else if (reps == 0) details = details.substring(0, details.length - 3) + ' until failure.'; //remove 'of'
+	else if (repType == 3 && reps == 1) details += reps + ' second on each side.';
+	else if (repType == 3) details += reps + ' seconds on each side.';
+	else if (repType == 2 && reps == 1) details += reps + ' second.';
+	else if (repType == 2) details += reps + ' seconds.';
+	else if (repType == 1 && reps == 1) details += reps + ' rep on each side.';
+	else if (repType == 1) details += reps + ' reps on each side.';
+	else if (reps == 1) details += reps + ' rep.';
+	else details += reps + ' reps.';
+
+	return details;
+}
+
+function createUpNext(mov) {
+	var details = '';
+	var name = mov.name;
+	var reps = mov.reps;
+	var repType = mov.repType;
+	var sets = mov.sets;
+
+	if (sets > 1) {
+		details = sets + ' sets of ' + name + 's, ';
+		
+		if (reps == 0) details + ' until failure';
+		else if (repType == 3 && reps == 1)		details += reps + ' second on each side.';
+		else if (repType == 3)					details += reps + ' seconds on each side.';
+		else if (repType == 2 && reps == 1) 	details += reps + ' second each.';
+		else if (repType == 2)					details += reps + ' seconds each.';
+		else if (repType == 1 && reps == 1)		details += reps + ' rep on each side.';
+		else if (repType == 1)					details += reps + ' reps on each side.';
+		else if (reps == 1)						details += reps + ' rep each.';
+		else 									details += reps + ' reps each.';
+	} else {
+		details = reps;
+
+		if (reps == 0) details += ' until failure';
+		else if ((repType == 3 || repType == 2) && reps == 1)	details += ' second of ' + name + 's';
+		else if ((repType == 3 || repType == 2))				details += ' seconds of ' + name + 's';
+		else if ((repType == 1 || repType == 0) && reps == 1)	details += ' rep of ' + name + 's';
+		else if ((repType == 1 || repType == 0))				details += ' reps of ' + name + 's';
+
+		//remove 's' on timed exercises with a single rep to sound more natural
+		if (sets == 1 && (repType == 3 || repType == 2)) details = details.substring(0, details.length - 1);
+
+		if (repType == 3 || repType == 1) details += 'on each side.';
+		else details += '.';
+	}
+
+	return details;
+}
+
+function saveProfileInCookie(workout, circuit, stretches, muscleGroupsWarning, breakFrequency, breakDuration, infoType) {
 	var date = new Date();
 	date.setTime(date.getTime() + 100000 * 36000);
 	var suffix = ';expires='+date.toUTCString()+';path=/;SameSite=Strict';
 	document.cookie = 'workout='+workout+suffix;
 	document.cookie = 'circuit='+circuit+suffix;
+	document.cookie = 'stretches='+stretches+suffix;
+	document.cookie = 'muscleGroupsWarning='+muscleGroupsWarning+suffix;
 	document.cookie = 'breakFrequency='+breakFrequency+suffix;
 	document.cookie = 'breakDuration='+breakDuration+suffix;
-	document.cookie = 'stretches='+stretches+suffix;
 	document.cookie = 'infoType='+infoType+suffix;
-	document.cookie = 'muscleGroupsWarning='+muscleGroupsWarning+suffix;
 }
 
 function loadCookie(target) {
@@ -94,17 +148,11 @@ function loadCookie(target) {
 	return null;
 }
 
-/*
-	workout encoding format:
-	movementId_setCount_repCount_repType,...
-
-	IDs are found in json.data
-*/
-
 //read elements and save workout
 function encodeProfile() {
 	var workout = '';
 
+	//movementId_setCount_repCount_repType,...
 	for (var i = 0; i < movements.length; i++) {
 		workout += movements[i].id + '_';
 		workout += movements[i].sets + '_';
@@ -113,7 +161,7 @@ function encodeProfile() {
 		if (i+1 != movements.length) workout += ',';
 	}
 
-	saveProfileInCookie(workout, circuit, breakFrequency, breakDuration, stretches, infoType, muscleGroupsWarning);
+	saveProfileInCookie(workout, circuit, stretches, muscleGroupsWarning, breakFrequency, breakDuration, infoType);
 }
 
 //decodes cookie and applies its settings
@@ -124,11 +172,22 @@ function decodeProfile() {
 
 	//settings
 	circuit = (loadCookie('circuit') === 'true');
-	breakFrequency = loadCookie('breakFrequency');
-	breakDuration = loadCookie('breakDuration');
+	if (circuit) circuitSetting.innerText = 'x';
+
 	stretches = (loadCookie('stretches') === 'true');
-	infoType = loadCookie('infoType');
+	if (stretches) stretchesSetting.innerText = 'x';
+
 	muscleGroupsWarning = (loadCookie('muscleGroupsWarning') === 'true');
+	if (muscleGroupsWarning) muscleGroupsWarningSetting.innerText = 'x';
+
+	breakFrequency = loadCookie('breakFrequency');
+	breakFrequencySetting.value = breakFrequency;
+
+	breakDuration = loadCookie('breakDuration');
+	breakDurationSetting.value = breakDuration;
+
+	infoType = loadCookie('infoType');
+	infoTypeSetting.value = infoType;
 
 	//movements
 	var m = loadCookie('workout');
@@ -150,6 +209,12 @@ function decodeProfile() {
 
 		movements.push(new Movement(id, sets, reps, repType, name, type, primary, secondary, target));
 	}
+
+	//fire fake event to update elements' surrounding flavor text
+	var e = new Event('change');
+	breakFrequencySetting.dispatchEvent(e);
+	breakDurationSetting.dispatchEvent(e);
+	infoTypeSetting.dispatchEvent(e);
 
 	refreshExerciseList();
 }

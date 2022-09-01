@@ -12,13 +12,18 @@
 			"id": 1
 		},
 		{
+			"name": "Break",
+			"type": "break",
+			"id": 2
+		},
+		{
 			"name": "Row",
 			"type": "pull",
 			"primary": "latissimus",
 			"secondary": "trapezius",
 			"target": "back",
 			"equipment": true,
-			"id": 2,
+			"id": 3,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -29,7 +34,7 @@
 			"secondary": "latissimus",
 			"target": "arms",
 			"equipment": true,
-			"id": 3,
+			"id": 4,
 			"possibly asymmetric": false,
 			"possibly repped": false
 		},
@@ -40,7 +45,7 @@
 			"secondary": "latissimus",
 			"target": "back",
 			"equipment": true,
-			"id": 4,
+			"id": 5,
 			"possibly asymmetric": false,
 			"possibly repped": true
 		},
@@ -51,7 +56,7 @@
 			"secondary": "latissimus",
 			"target": "arms",
 			"equipment": true,
-			"id": 5,
+			"id": 6,
 			"possibly asymmetric": false,
 			"possibly repped": true
 		},
@@ -62,7 +67,7 @@
 			"secondary": "trapezius",
 			"target": "chest",
 			"equipment": true,
-			"id": 6,
+			"id": 7,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -73,7 +78,7 @@
 			"secondary": "pectorals",
 			"target": "back",
 			"equipment": true,
-			"id": 7,
+			"id": 8,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -84,7 +89,7 @@
 			"secondary": "quadriceps",
 			"target": "core",
 			"equipment": true,
-			"id": 8,
+			"id": 9,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -95,7 +100,7 @@
 			"secondary": "forearms",
 			"target": "core",
 			"equipment": true,
-			"id": 9,
+			"id": 10,
 			"possibly asymmetric": false,
 			"possibly repped": false
 		},
@@ -106,7 +111,7 @@
 			"secondary": "deltoids",
 			"target": "chest",
 			"equipment": true,
-			"id": 10,
+			"id": 11,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -117,7 +122,7 @@
 			"secondary": "deltoids",
 			"target": "arms",
 			"equipment": false,
-			"id": 11,
+			"id": 12,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -128,7 +133,7 @@
 			"secondary": "triceps",
 			"target": "chest",
 			"equipment": false,
-			"id": 12,
+			"id": 13,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -139,7 +144,7 @@
 			"secondary": "deltoids",
 			"target": "arms",
 			"equipment": false,
-			"id": 13,
+			"id": 14,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -150,7 +155,7 @@
 			"secondary": "trapezius",
 			"target": "arms",
 			"equipment": false,
-			"id": 14,
+			"id": 15,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -161,7 +166,7 @@
 			"secondary": "forearms",
 			"target": "arms",
 			"equipment": true,
-			"id": 15,
+			"id": 16,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -172,7 +177,7 @@
 			"secondary": "obliques",
 			"target": "core",
 			"equipment": false,
-			"id": 16,
+			"id": 17,
 			"possibly asymmetric": false,
 			"possibly repped": false
 		},
@@ -183,7 +188,7 @@
 			"secondary": "obliques",
 			"target": "core",
 			"equipment": false,
-			"id": 17,
+			"id": 18,
 			"possibly asymmetric": false,
 			"possibly repped": false
 		},
@@ -194,7 +199,7 @@
 			"secondary": "obliques",
 			"target": "core",
 			"equipment": false,
-			"id": 18,
+			"id": 19,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -205,7 +210,7 @@
 			"secondary": "deltoids",
 			"target": "core",
 			"equipment": false,
-			"id": 19,
+			"id": 20,
 			"possibly asymmetric": false,
 			"possibly repped": false
 		},
@@ -216,7 +221,7 @@
 			"secondary": "abdominals",
 			"target": "core",
 			"equipment": false,
-			"id": 20,
+			"id": 21,
 			"possibly asymmetric": true,
 			"possibly repped": false
 		},
@@ -227,7 +232,7 @@
 			"secondary": "tricpes",
 			"target": "back",
 			"equipment": false,
-			"id": 21,
+			"id": 22,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -238,7 +243,7 @@
 			"secondary": "deltoids",
 			"target": "back",
 			"equipment": false,
-			"id": 22,
+			"id": 23,
 			"possibly asymmetric": true,
 			"possibly repped": false
 		},
@@ -249,7 +254,7 @@
 			"secondary": "trapezius",
 			"target": "back",
 			"equipment": false,
-			"id": 23,
+			"id": 24,
 			"possibly asymmetric": false,
 			"possibly repped": true
 		},
@@ -260,7 +265,7 @@
 			"secondary": "deltoids",
 			"target": "arms",
 			"equipment": true,
-			"id": 24,
+			"id": 25,
 			"possibly asymmetric": false,
 			"possibly repped": true
 		},
@@ -271,7 +276,7 @@
 			"secondary": "glutes",
 			"target": "legs",
 			"equipment": false,
-			"id": 25,
+			"id": 26,
 			"possibly asymmetric": false,
 			"possibly repped": true
 		},
@@ -282,7 +287,7 @@
 			"secondary": "glutes",
 			"target": "legs",
 			"equipment": false,
-			"id": 26,
+			"id": 27,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -293,7 +298,7 @@
 			"secondary": "glutes",
 			"target": "legs",
 			"equipment": false,
-			"id": 27,
+			"id": 28,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -304,7 +309,7 @@
 			"secondary": "hamstrings",
 			"target": "legs",
 			"equipment": false,
-			"id": 28,
+			"id": 29,
 			"possibly asymmetric": false,
 			"possibly repped": true
 		},
@@ -315,7 +320,7 @@
 			"secondary": "hamstrings",
 			"target": "legs",
 			"equipment": false,
-			"id": 29,
+			"id": 30,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -326,7 +331,7 @@
 			"secondary": "hamstrings",
 			"target": "legs",
 			"equipment": false,
-			"id": 30,
+			"id": 31,
 			"possibly asymmetric": false,
 			"possibly repped": true
 		},
@@ -337,7 +342,7 @@
 			"secondary": "glutes",
 			"target": "back",
 			"equipment": false,
-			"id": 31,
+			"id": 32,
 			"possibly asymmetric": false,
 			"possibly repped": false
 		},
@@ -348,7 +353,7 @@
 			"secondary": "quadriceps",
 			"target": "legs",
 			"equipment": false,
-			"id": 32,
+			"id": 33,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -359,7 +364,7 @@
 			"secondary": "quadriceps",
 			"target": "legs",
 			"equipment": false,
-			"id": 33,
+			"id": 34,
 			"possibly asymmetric": false,
 			"possibly repped": true
 		},
@@ -370,7 +375,7 @@
 			"secondary": "latissimus",
 			"target": "back",
 			"equipment": true,
-			"id": 34,
+			"id": 35,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		},
@@ -381,7 +386,7 @@
 			"secondary": "latissimus",
 			"target": "arms",
 			"equipment": true,
-			"id": 35,
+			"id": 36,
 			"possibly asymmetric": true,
 			"possibly repped": true
 		}
@@ -464,6 +469,13 @@
 		"Dynamic stretches are done quickly, with litte time spent in a particular stretch. About 5 seconds is enough.",
 		"Dynamic stretches are useful at the start of a workout.",
 		"Dynamic stretches help keep your muscles strong and warmed up, without being so relaxed as to diminish your performance"
+	],
+
+	"break flavors":
+	[
+		"Breaks are important to let your muscles rest. But don't break for too long - workouts become too long and less efficient.",
+		"Breaks can feel good, but it's important to burn those muscles out! Rest while you can so you can go harder on the next set.",
+		"Resting can help give you strength in upcoming exercises. That helps you push yourself to the limit and get the best workout!"
 	],
 
 	"push flavors":

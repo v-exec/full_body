@@ -1,34 +1,65 @@
-//containers
-var intro = document.getElementById('intro');
-var exercise = document.getElementById('exercise');
-var results = document.getElementById('results');
-var tracker = document.getElementById('tracker');
-var progressBar = document.getElementById('progressBar');
-var resultInfo = document.getElementById('resultInfo');
+//modules & containers
+const intro = document.getElementById('intro');
+const exercise = document.getElementById('exercise');
+const results = document.getElementById('results');
+const tracker = document.getElementById('tracker');
+const resultInfo = document.getElementById('resultInfo');
+const exerciseList = document.getElementById('exerciseList');
+const infoBox = document.getElementById('infoBox');
 
-//elements
-var introTitle = document.getElementById('introTitle');
-var exerciseList = document.getElementById('exerciseList');
-var optionsPlan = document.getElementById('optionsPlan');
-var start = document.getElementById('start');
-var movementName = document.getElementById('movementName');
-var movementDetails = document.getElementById('movementDetails');
-var timedExerciseTimer = document.getElementById('timedExerciseTimer');
-var movementNotes = document.getElementById('movementNotes');
-var movementClock = document.getElementById('movementClock');
-var pausedClock = document.getElementById('pausedClock');
-var totalClock = document.getElementById('totalClock');
-var pauseTimer = document.getElementById('pauseTimer');
-var nextMovement = document.getElementById('nextMovement');
-var progressNumbers = document.getElementById('progressNumbers');
-var progressFraction = document.getElementById('progressFraction');
-var progressPercentage = document.getElementById('progressPercentage');
-var progressFill = document.getElementById('progressFill');
-var resultText = document.getElementById('resultText');
-var resultFinal = document.getElementById('resultFinal');
+//buttons, checkboxes, & inputs
+const info = document.getElementById('info');
+const exerciseStart= document.getElementById('exerciseStart');
+const optionsPlan = document.getElementById('optionsPlan');
+const start = document.getElementById('start');
 
-var shortTone = document.getElementById('shortTone');
-var longTone = document.getElementById('longTone');
+const pauseTimer = document.getElementById('pauseTimer');
+const nextMovement = document.getElementById('nextMovement');
+
+const circuitSetting = document.getElementById('circuitSetting');
+const stretchesSetting = document.getElementById('stretchesSetting');
+const muscleGroupsWarningSetting = document.getElementById('muscleGroupsWarningSetting');
+const breakFrequencySetting = document.getElementById('breakFrequencySetting');
+const breakDurationSetting = document.getElementById('breakDurationSetting');
+const infoTypeSetting = document.getElementById('infoTypeSetting');
+
+//text fields
+const introTitle = document.getElementById('introTitle');
+const introDescription = document.getElementById('introDescription');
+
+const movementName = document.getElementById('movementName');
+const movementDetails = document.getElementById('movementDetails');
+const movementNotes = document.getElementById('movementNotes');
+const movementNotesMobile = document.getElementById('movementNotesMobile');
+
+const movementClock = document.getElementById('movementClock');
+const pausedClock = document.getElementById('pausedClock');
+const totalClock = document.getElementById('totalClock');
+
+const resultTitle = document.getElementById('resultTitle');
+const resultDescription = document.getElementById('resultDescription');
+
+const progressFraction = document.getElementById('progressFraction');
+const progressPercentage = document.getElementById('progressPercentage');
+
+const breakFrequencyText = document.getElementById('breakFrequencyText');
+const breakDurationText = document.getElementById('breakDurationText');
+const infoTypeText = document.getElementById('infoTypeText');
+
+const musclesWarning = document.getElementById('musclesWarning');
+
+//graphics
+const progressBar = document.getElementById('progressBar');
+const progressNumbers = document.getElementById('progressNumbers');
+const progressFill = document.getElementById('progressFill');
+
+//audio
+const shortTone = document.getElementById('shortTone');
+const longTone = document.getElementById('longTone');
+
+//constants
+const standardTransitionTime = 1000;
+const courtesyTime = 10;
 
 //flags
 var animating = false;
@@ -47,13 +78,13 @@ fetch('https://exp.v-os.ca/full_body/assets/data.json')
 
 //settings
 var circuit = false;
+var stretches = false;
+var muscleGroupsWarning = false;
 var breakFrequency = 0;
 var breakDuration = 0;
-var stretches = false;
 var infoType = 0;
-var muscleGroupsWarning = false;
 
-//holds active workout data
+//active workout data
 var movements = [];
 var currentMovement = 0;
 
@@ -62,5 +93,7 @@ var activeSeconds = 0;
 var pausedSeconds = 0;
 var timeInterval;
 
-//persistent flavor text data
+//ui state data
 var warningFlavorIndex = 0;
+var optionsOpen = false;
+var infoOpen = false;

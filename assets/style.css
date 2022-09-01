@@ -15,8 +15,6 @@
 	--radius: 7px;
 	--screenTransition: 1s;
 	--elementTransition: 0.5s;
-
-	--titleTextSize: 110px;
 }
 
 html {
@@ -27,6 +25,7 @@ html {
 	padding: 0;
 	margin: 0;
 	background-color: black;
+	overflow-y: hidden;
 }
 
 *,:before,:after {
@@ -62,8 +61,73 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: var(--dark);
+	background-color: var(--bright);
 }
+
+/* SCREENS */
+
+#main {
+	width: 100%;
+	height: 100%;
+	padding: 150px;
+}
+
+#intro,
+#preparation,
+#exercise,
+#results {
+	display: none;
+	width: 100%;
+	height: 100%;
+	transition: opacity var(--screenTransition) ease;
+	opacity: 0;
+}
+
+#intro {
+	display: inline-block;
+	opacity: 1;
+}
+
+/* INTRO */
+
+#introTitle,
+#infoTitle {
+	display: inline-block;
+	width: 100%;
+	font-size: 110px;
+	font-weight: 700;
+	margin-bottom: 40px;
+	color: var(--ultraDark);
+}
+
+#introDescription {
+	display: inline-block;
+	width: 100%;
+	font-size: 20px;
+	margin-bottom: 40px;
+	color: var(--dark);
+}
+
+#exerciseList,
+#optionsList {
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	max-height: 50%;
+	left: 50%;
+	transform: translate(-50%, 0%);
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	overflow-y: auto;
+	scrollbar-width: thin;
+	scrollbar-color: var(--bright) var(--ultraBright);
+	opacity: 1;
+	transition: opacity var(--screenTransition) ease;
+	font-size: 16px;
+}
+
+/* INFO */
 
 #info {
 	position: absolute;
@@ -96,14 +160,6 @@ body {
 	opacity: 0;
 }
 
-#infoTitle {
-	margin: 0;
-	margin-bottom: 40px;
-	color: var(--ultraDark);
-	font-size: var(--titleTextSize);
-	font-weight: 700;
-}
-
 #infoText {
 	margin: 0;
 	color: var(--dark);
@@ -114,73 +170,11 @@ body {
 	color: var(--ultraDark);
 }
 
-/* SCREENS */
+/* LISTS */
 
-#main {
-	width: calc(100% - 300px);
-	height: calc(100% - 300px);
-	padding: 150px;
-}
-
-#intro,
-#preparation,
-#exercise,
-#results {
-	display: none;
-	position: absolute;
-	width: calc(100% - 300px);
-	height: calc(100% - 300px);
-	visibility: hidden;
-	transition: opacity var(--screenTransition) ease;
-	opacity: 0;
-}
-
-#intro {
-	display: inline-block;
-	visibility: visible;
-	opacity: 1;
-}
-
-/* INTRO */
-
-#introTitle {
-	display: inline-block;
-	width: 100%;
-	font-size: var(--titleTextSize);
-	font-weight: 700;
-	margin-bottom: 40px;
-	color: var(--ultraDark);
-}
-
-#introDescription {
-	display: inline-block;
-	width: 100%;
-	font-size: 20px;
-	margin-bottom: 40px;
-	color: var(--dark);
-}
-
-#exerciseList,
 #optionsList {
 	display: none;
-	height: 40%;
-	transition: opacity var(--screenTransition) ease;
 	opacity: 0;
-	text-align: center;
-}
-
-#exerciseList {
-	display: inline-block;
-	position: relative;
-	min-width: 300px;
-	opacity: 1;
-	left: 50%;
-	transform: translate(-50%, 0%);
-	margin-left: auto;
-	margin-right: auto;
-	overflow-y: auto;
-	padding-top: 20px;
-	padding-bottom: 20px;
 }
 
 #exerciseList::-webkit-scrollbar {
@@ -189,30 +183,27 @@ body {
 }
 
 #exerciseList::-webkit-scrollbar-thumb {
-	background-color: var(--dark);
+	background-color: var(--bright);
 }
 
 #introButtons {
+	display: inline-block;
 	position: absolute;
-	width: 450px;
-	height: 60px;
-	bottom: -125px;
-	right: 0px;
+	width: 100%;
+	height: 50px;
+	left: 0;
+	bottom: 150px;
+	text-align: center;
 }
 
 #optionsPlan,
 #start {
-	display: flex;
-	position: absolute;
+	display: inline-flex;
 	width: 100px;
 	height: 50px;
-	left: calc(50% + 5px);
-	bottom: 0px;
-	transform: translate(0%, 0%);
 	background-color: var(--ultraBright);
 	border-radius: var(--radius);
 	color: var(--dark);
-	font-size: 16px;
 	font-weight: 700;
 	align-items: center;
 	justify-content: center;
@@ -225,12 +216,11 @@ body {
 }
 
 #optionsPlan {
-	left: calc(50% - 5px);
-	transform: translate(-100%, 0%);
 	background-color: transparent;
 	border: 1px solid var(--bright);
 	color: var(--bright);
 	transition: color var(--elementTransition) ease;
+	margin-right: 10px;
 }
 
 #optionsPlan:hover {
@@ -238,9 +228,11 @@ body {
 	cursor: pointer;
 }
 
-.musclesWarning {
+#musclesWarning {
+	display: inline-block;
 	font-size: 14px;
 	color: var(--bright);
+	margin-bottom: 20px;
 }
 
 .listElement {
@@ -253,17 +245,17 @@ body {
 
 .fluidField,
 .fluidDropdown,
-.exerciseDrag,
-.exerciseComma,
-.exerciseText,
-.exerciseOR {
+.fluidLeftButton,
+.fluidComma,
+.fluidText,
+.checkBox {
 	display: inline-block;
 	padding: 0px;
 	margin: 0px;
+	font-size: 16px;
 	margin-right: 10px;
 	height: 35px;
 	color: var(--dark);
-	font-size: 16px;
 	vertical-align: top;
 }
 
@@ -284,7 +276,8 @@ body {
 	width: 30px;
 }
 
-.fluidField:focus {
+.fluidField:focus,
+.fluidField:focus-visible {
 	outline: none;
 }
 
@@ -293,29 +286,32 @@ body {
 	border-bottom: solid 1px var(--dark);
 }
 
-.exerciseText {
+.fluidText {
 	line-height: 35px;
 }
 
-.exerciseComma {
+.fluidComma {
 	line-height: 60px;
 }
 
-.exerciseDrag {
+.fluidLeftButton {
+	position: relative;
+	width: 25px;
+	height: 25px;
+	top: 6px;
+	line-height: 20px;
+	margin-right: 20px;
+	border: 1px solid var(--bright);
+	border-radius: var(--radius);
 	color: var(--bright);
 	transition: color var(--elementTransition) ease;
-}
-
-.exerciseDrag:hover {
-	color: var(--dark);
-	cursor: pointer;
 }
 
 #exerciseAdd {
 	display:  flex;
 	position: relative;
-	width: 80px;
-	height: 40px;
+	width: 25px;
+	height: 25px;
 	left: 50%;
 	margin-bottom: 20px;
 	transform: translate(-50%, 0%);
@@ -327,7 +323,8 @@ body {
 	transition: color var(--elementTransition) ease;
 }
 
-#exerciseAdd:hover {
+#exerciseAdd:hover,
+.fluidLeftButton:hover {
 	color: var(--dark);
 	cursor: pointer;
 }
@@ -338,7 +335,7 @@ body {
 	display: inline-block;
 	text-transform: capitalize;
 	width: 60%;
-	font-size: 200px;
+	font-size: 150px;
 	font-weight: 700;
 	color: var(--ultraDark);
 	margin-bottom: 40px;
@@ -346,21 +343,33 @@ body {
 
 #movementDetails {
 	display: inline-block;
-	width: 50%;
+	width: 100%;
 	font-size: 40px;
 	font-weight: 700;
+	color: var(--dark);
+	margin-bottom: 40px;
+}
+
+#movementNotes,
+#movementNotesMobile {
+	font-size: 20px;
 	color: var(--dark);
 }
 
 #movementNotes {
 	display: inline-block;
 	position: absolute;
-	top: 8%;
-	right: 0;
+	width: 30%;
 	text-align: right;
 	width: 30%;
-	font-size: 20px;
-	color: var(--dark);
+	top: 200px;
+	right: 150px;
+	vertical-align: top;
+}
+
+#movementNotesMobile {
+	display: none;
+	width: 60%;
 }
 
 #movementClock,
@@ -368,16 +377,16 @@ body {
 #totalClock {
 	display: inline-block;
 	position: absolute;
-	width: 100px;
+	width: auto;
 	height: 35px;
 	bottom: 60px;
-	width: 20%;
 	font-size: 30px;
 	color: var(--ultraBright);
 }
 
 #movementClock {
-	left: 0;
+	bottom: calc(150px + 60px);
+	left: 150px;
 	text-align: left;
 }
 
@@ -405,8 +414,8 @@ body {
 	position: absolute;
 	width: 150px;
 	height: 50px;
-	bottom: -125px;
-	right: 0px;
+	right: 150px;
+	bottom: 25px;
 	transform: translate(0%, -50%);
 	background-color: var(--ultraBright);
 	border-radius: var(--radius);
@@ -418,25 +427,33 @@ body {
 	transition: background-color var(--elementTransition) ease;
 }
 
-#nextMovement:hover,
-#pauseTimer:hover {
+#nextMovement:hover {
 	background-color: var(--bright);
 	cursor: pointer;
 }
 
 #pauseTimer {
-	right: 170px;
+	right: calc(150px + 150px + 10px);
+	background-color: transparent;
+	border: 1px solid var(--bright);
+	color: var(--bright);
+	transition: color var(--elementTransition) ease;
+}
+
+#pauseTimer:hover {
+	color: var(--dark);
+	cursor: pointer;
 }
 
 /* TRACKER */
 
 #tracker {
 	display: none;
-	visibility: hidden;
 	position: absolute;
 	width: calc(100% - 300px);
 	height: 60px;
 	bottom: 150px;
+	left: 150px;
 	opacity: 0;
 	transition: opacity var(--elementTransition) ease;
 }
@@ -487,21 +504,125 @@ body {
 
 /* RESULTS */
 
-#resultText {
+#resultTitle {
 	display: inline-block;
 	width: 100%;
-	font-size: var(--titleTextSize);
+	font-size: 110px;
 	font-weight: 700;
 	margin-bottom: 40px;
 	color: var(--ultraDark);
 }
 
-#resultFinal {
+#resultDescription {
 	display: inline-block;
 	font-size: 20px;
 	margin-bottom: 40px;
 	color: var(--dark);
-	visibility: hidden;
 	opacity: 0;
 	transition: opacity var(--screenTransition) ease;
+}
+
+/*-----------MEDIA-----------*/
+
+@media (max-width: 1400px) {
+	#main {
+		padding: 80px;
+	}
+
+	#introTitle,
+	#infoTitle,
+	#resultTitle {
+		font-size: 72px;
+	}
+
+	#introDescription,
+	#resultDescription {
+		font-size: 18px;
+	}
+
+	#infoBox {
+		width: calc(100% - 80px);
+		height: calc(100% - 80px);
+	}
+
+	#movementName {
+		font-size: 72px;
+	}
+
+	#movementNotes {
+		top: 100px;
+		right: 80px;
+	}
+
+	#movementClock {
+		left: 80px;
+	}
+
+	#tracker {
+		width: calc(100% - 160px);
+		left: 80px;
+	}
+
+	#nextMovement {
+		right: 80px;
+	}
+
+	#pauseTimer {
+		right: calc(80px + 150px + 10px);
+	}
+}
+
+@media (max-width: 900px) {
+	#main {
+		padding: 40px;
+	}
+
+	#introButtons {
+		bottom: 40px;
+	}
+
+	#movementName {
+		width: 100%;
+	}
+
+	#movementNotes {
+		display: none;
+	}
+
+	#movementNotesMobile {
+		display: inline-block;
+	}
+
+	#movementDetails {
+		font-size: 30px;
+	}
+
+	#movementClock {
+		left: 40px;
+	}
+
+	#tracker {
+		width: calc(100% - 80px);
+		left: 40px;
+	}
+
+	#nextMovement {
+		right: 40px;
+	}
+
+	#pauseTimer {
+		right: calc(40px + 150px + 10px);
+	}
+}
+
+@media (max-width: 500px) {
+	#nextMovement {
+		width: calc(50% - 5px - 40px);
+		right: 40px;
+	}
+
+	#pauseTimer {
+		width: calc(50% - 5px - 40px);
+		left: 40px;
+	}
 }

@@ -1,36 +1,123 @@
-//functionality for next exercise button
 nextMovement.addEventListener('click', function() {
-	if (!animating) loadNextMovement();
-}, false);
+	if (animating) return;
+	loadNextMovement();
+});
 
-//functionality for pause button
 pauseTimer.addEventListener('click', function() {
+	if (animating) return;
 	paused = !paused;
 	if (paused) {
 		pauseTimer.innerText = 'Resume Timer';
-		pauseTimer.style.backgroundColor = 'var(--bright)';
+		pauseTimer.style.color = 'var(--dark)';
 	}
 	else {
 		pauseTimer.innerText = 'Pause Timer';
 		pauseTimer.removeAttribute('style');
 	}
-}, false);
+});
 
-//functionality for options / plan button
+optionsPlan.addEventListener('click', function() {
+	if (animating) return;
+	if (!optionsOpen) {
+		toggleAppearance(exerciseList, false, standardTransitionTime);
+		setTimeout(function() {
+			toggleAppearance(optionsList, true, standardTransitionTime);
+		}, standardTransitionTime);
+		optionsPlan.innerText = 'Plan';
+	} else {
+		toggleAppearance(optionsList, false, standardTransitionTime);
+		setTimeout(function() {
+			toggleAppearance(exerciseList, true, standardTransitionTime);
+		}, standardTransitionTime);
+		optionsPlan.innerText = 'Options';
+		refreshExerciseList();
+	}
+	optionsOpen = !optionsOpen;
+});
 
-//functionality for start button
 start.addEventListener('click', function() {
+	if (animating) return;
 	sequenceMovements();
-}, false);
+});
 
-//functionality for info button
+info.addEventListener('click', function() {
+	if (animating) return;
+	if (!infoOpen) toggleAppearance(infoBox, true, standardTransitionTime);
+	else toggleAppearance(infoBox, false, standardTransitionTime);
+	infoOpen = !infoOpen;
+});
 
-//functionality for all checkmarks
+circuitSetting.addEventListener('click', function() {
+	circuit = !circuit;
+	if (circuit) circuitSetting.innerText = 'x';
+	else circuitSetting.innerText = '';
+	encodeProfile();
+});
+
+stretchesSetting.addEventListener('click', function() {
+	stretches = !stretches
+	if (stretches) stretchesSetting.innerText = 'x';
+	else stretchesSetting.innerText = '';
+	encodeProfile();
+});
+
+muscleGroupsWarningSetting.addEventListener('click', function() {
+	muscleGroupsWarning = !muscleGroupsWarning
+	if (muscleGroupsWarning) muscleGroupsWarningSetting.innerText = 'x';
+	else muscleGroupsWarningSetting.innerText = '';
+	encodeProfile();
+});
+
+breakFrequencySetting.addEventListener('change', function() {
+	breakFrequency = Math.abs(breakFrequencySetting.value.toString().replace(/\D/g,''));
+	breakFrequencySetting.value = breakFrequency;
+	if (Math.abs(breakFrequency) != 1) breakFrequencyText.innerText = 'exercises.';
+	else breakFrequencyText.innerText = 'exercise.';
+	encodeProfile();
+});
+
+breakDurationSetting.addEventListener('change', function() {
+	breakDuration = Math.abs(breakDurationSetting.value.toString().replace(/\D/g,''));
+	breakDurationSetting.value = breakDuration;
+	if (Math.abs(breakDuration) != 1) breakDurationText.innerText = 'seconds.';
+	else breakDurationText.innerText = 'second.';
+	encodeProfile();
+});
+
+infoTypeSetting.addEventListener('change', function() {
+	infoType = Math.abs(infoTypeSetting.value.toString().replace(/\D/g,''));
+	if (infoType > 2) infoType = 2;
+	infoTypeSetting.value = infoType;
+
+	switch (infoType) {
+		case 0:
+			infoTypeText.innerText = ': none.';
+			break;
+
+		case 1:
+			infoTypeText.innerText = ': flavor text.';
+			break;
+
+		case 2:
+			infoTypeText.innerText = ': up next.';
+			break;
+	}
+	encodeProfile();
+});
+
+exerciseAdd.addEventListener('click', function() {
+	movements.push(new Movement());
+	encodeProfile();
+	refreshExerciseList();
+});
 
 function refreshExerciseList() {
-	//clear list
-	while (exerciseList.firstChild) {
-		exerciseList.removeChild(exerciseList.firstChild);
+	//clear list of elements
+	for (var i = 0; i < exerciseList.children.length; i++) {
+		if (exerciseList.children[i].className == 'listElement') {
+			exerciseList.removeChild(exerciseList.children[i]);
+			i--;
+		}
 	}
 
 	//populate list
@@ -38,16 +125,27 @@ function refreshExerciseList() {
 		var exercise = document.createElement('div');
 		exercise.className = 'listElement';
 
-		var drag = document.createElement('span');
-		drag.className = 'exerciseDrag';
-		exercise.appendChild(drag);
+		var remove = document.createElement('span');
+		remove.className = 'fluidLeftButton';
+		remove.innerText = '-';
+
+		(function(i,name) {
+			remove.addEventListener('click', function() {
+				movements.splice(i, 1);
+				i--;
+				encodeProfile();
+				refreshExerciseList();
+			});
+		}(i,name));
+
+		exercise.appendChild(remove);
 
 		//NAME
 		var name = document.createElement('select');
 		name.className = 'fluidDropdown';
 
 		for (var j = 0; j < fulldata['movements'].length; j++) {
-			if (j == 0 || j == 1) continue; //skip stretches
+			if (j == 0 || j == 1 || j == 2) continue; //skip stretches and breaks
 			var option = document.createElement('option');
 			option.value = j;
 			option.text = fulldata['movements'][j]['name'];
@@ -55,7 +153,7 @@ function refreshExerciseList() {
 			name.appendChild(option);
 		}
 
-		//save and full reload on change - because we want to reload all movement data, not just the name
+		//reload all movement data, not just name
 		(function(i,name) {
 			name.addEventListener('change', function() {
 				movements[i].id = name.value;
@@ -70,7 +168,7 @@ function refreshExerciseList() {
 
 		//COMMA
 		var comma = document.createElement('span');
-		comma.className = 'exerciseComma';
+		comma.className = 'fluidComma';
 		comma.innerText = ',';
 		exercise.appendChild(comma);
 
@@ -81,10 +179,11 @@ function refreshExerciseList() {
 		setCount.setAttribute('maxlength', 2);
 		setCount.value = movements[i].sets;
 
-		//save and refresh on change
 		(function(i,setCount) {
 			setCount.addEventListener('change', function() {
-				movements[i].sets = Math.abs(setCount.value.toString().replace(/\D/g,''));
+				var s = Math.abs(setCount.value.toString().replace(/\D/g,''));
+				if (s == 0) s = 1;
+				movements[i].sets = s;
 				encodeProfile();
 				refreshExerciseList();
 			});
@@ -94,7 +193,7 @@ function refreshExerciseList() {
 
 		//SET TEXT
 		var setText = document.createElement('span');
-		setText.className = 'exerciseText';
+		setText.className = 'fluidText';
 		if (Math.abs(setCount.value) != 1) setText.innerText = 'sets of';
 		else setText.innerText = 'set of';
 		exercise.appendChild(setText);
@@ -106,7 +205,6 @@ function refreshExerciseList() {
 		repCount.setAttribute('maxlength', 2);
 		repCount.value = movements[i].reps;
 
-		//save on change
 		(function(i,repCount) {
 			repCount.addEventListener('change', function() {
 				movements[i].reps = Math.abs(repCount.value.toString().replace(/\D/g,''));
@@ -137,7 +235,6 @@ function refreshExerciseList() {
 			repType.appendChild(option);
 		}
 
-		//save and refresh on change
 		(function(i,repType) {
 			repType.addEventListener('change', function() {
 				movements[i].repType = repType.value;
@@ -150,20 +247,8 @@ function refreshExerciseList() {
 
 		exercise.appendChild(repType);
 
-		exerciseList.appendChild(exercise);
+		exerciseList.insertBefore(exercise, exerciseAdd);
 	}
-
-	var plus = document.createElement('span');
-	plus.id = 'exerciseAdd';
-	plus.innerText = 'more...';
-
-	//add new default movement on click
-	plus.addEventListener('click', function() {
-		movements.push(new Movement());
-		refreshExerciseList();
-	}, false);
-
-	exerciseList.appendChild(plus);
 
 	if (muscleGroupsWarning) {
 		var muscleGroupsCheck = [];
@@ -185,10 +270,6 @@ function refreshExerciseList() {
 		}
 		muscles = muscles.slice(0, -2) + '.';
 
-		var musclesWarning = document.createElement('span');
-		musclesWarning.className = 'musclesWarning';
 		musclesWarning.innerText = fulldata['group warning flavors'][warningFlavorIndex] + muscles;
-
-		exerciseList.appendChild(musclesWarning);
 	}
 }

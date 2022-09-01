@@ -1,7 +1,7 @@
 function appStart() {
 	//load profile - if no profile, create default profile
 	if (loadCookie('workout') == null) {
-		saveProfileInCookie('3_3_20_2',false,1,60,true,1,true);
+		saveProfileInCookie('4_3_20_2',true,true,true,2,60,1);
 	}
 	generateIntro();
 	decodeProfile()
@@ -17,7 +17,6 @@ function sequenceMovements() {
 	//if circuit, deconstruct movements into multiple sets
 	var newMovements = [];
 	if (circuit) {
-		console.log(circuit);
 		for (var i = 0; i < movements.length; i++) {
 			for (var j = 0; j < movements[i].sets; j++) {
 				newMovements.push(movements[i]);
@@ -32,10 +31,23 @@ function sequenceMovements() {
 	//shuffle for randomness
 	shuffle(newMovements);
 
+	//add breaks
+	if (breakFrequency > 0) {
+		var x = 0;
+		for (var i = 0; i < newMovements.length; i++) {
+			if (x == breakFrequency) {
+				newMovements.splice(i, 0, new Movement(2,1,breakDuration,2,fulldata['movements'][2].name,fulldata['movements'][2].type));
+				i++;
+				x = 0;
+			}
+			x++;
+		}
+	}
+
 	//add stretches
 	if (stretches) {
-		var firstStretch = new Movement(0,0,0,0,fulldata['movements'][0].name,fulldata['movements'][0].type);
-		var lastStretch = new Movement(1,0,0,0,fulldata['movements'][1].name,fulldata['movements'][1].type);
+		var firstStretch = new Movement(0,1,120,2,fulldata['movements'][0].name,fulldata['movements'][0].type);
+		var lastStretch = new Movement(1,1,120,2,fulldata['movements'][1].name,fulldata['movements'][1].type);
 		newMovements.unshift(firstStretch);
 		newMovements.push(lastStretch);
 	}
@@ -46,7 +58,7 @@ function sequenceMovements() {
 }
 
 function loadMovements() {
-	toggleAppearance(intro, false, 1000, true);
+	toggleAppearance(intro, false, standardTransitionTime);
 
 	loadNextMovement();
 
@@ -56,7 +68,7 @@ function loadMovements() {
 			if (paused) pausedSeconds += 1;
 			else activeSeconds += 1;
 		}
-	}, 1000);
+	}, standardTransitionTime);
 
 	//start clocks
 	setInterval(function() {
@@ -70,11 +82,11 @@ function loadMovements() {
 function loadNextMovement() {
 	//don't unload screen on first load
 	if (currentMovement != 0) {
-		toggleAppearance(exercise, false, 1000);
+		toggleAppearance(exercise, false, standardTransitionTime);
 	} else {
 		setTimeout(function() {
-			toggleAppearance(tracker, true, 1000, true);
-		}, 2000);
+			toggleAppearance(tracker, true, standardTransitionTime);
+		}, standardTransitionTime * 2);
 	}
 
 	setTimeout(function() {
@@ -98,35 +110,14 @@ function loadNextMovement() {
 		var move = movements[currentMovement];
 
 		movementName.innerText = move.name;
-		//dynamically size text so it's not too big if it's too long
-		movementName.style.fontSize = 200 - (move.name.length * 3) + 'px';
-
-		console.log(movements);
 
 		//format movement details
-		//ignore details if stretch
-		if (move.type != 'stretch') {
-			var details = '';
-			var reps = move.reps;
-			var repType = move.repType;
-			var sets = move.sets;
+		var details = '';
+		var reps = move.reps;
+		var repType = move.repType;
+		var sets = move.sets;
 
-			if (sets > 1) details = sets + ' sets of '; 
-
-			//take into account singulars and plurals
-			if (reps == 0 && sets <= 1) details += 'Until failure.';
-			else if (reps == 0) details = details.substring(0, details.length - 3) + ' until failure.'; //remove 'of'
-			else if (repType == 3 && reps == 1) details += reps + ' second on each side.';
-			else if (repType == 3) details += reps + ' seconds on each side.';
-			else if (repType == 2 && reps == 1) details += reps + ' second.';
-			else if (repType == 2) details += reps + ' seconds.';
-			else if (repType == 1 && reps == 1) details += reps + ' rep on each side.';
-			else if (repType == 1) details += reps + ' reps on each side.';
-			else if (reps == 1) details += reps + ' rep.';
-			else details += reps + ' reps.';
-
-			movementDetails.innerText = details;
-		}
+		movementDetails.innerText = createDetails(move);
 
 		//add notes
 		var notes;
@@ -135,38 +126,48 @@ function loadNextMovement() {
 		var primary = move.primary;
 		var secondary = move.secondary;
 		
-		switch(type.toLowerCase()) {
-			case 'stretch':
-				if (move.name == 'Static Stretches') notes = fulldata['static stretch flavors'][getRandomIntInclusive(0, fulldata['static stretch flavors'].length - 1)];
-				else notes = fulldata['dynamic stretch flavors'][getRandomIntInclusive(0, fulldata['dynamic stretch flavors'].length - 1)];
-				break;
+		if (infoType == 1) {
+			switch(type.toLowerCase()) {
+				case 'stretch':
+					if (move.name == 'Static Stretches') notes = fulldata['static stretch flavors'][getRandomIntInclusive(0, fulldata['static stretch flavors'].length - 1)];
+					else notes = fulldata['dynamic stretch flavors'][getRandomIntInclusive(0, fulldata['dynamic stretch flavors'].length - 1)];
+					break;
 
-			case 'push':
-				notes = fulldata['push flavors'][getRandomIntInclusive(0, fulldata['push flavors'].length - 1)];
-				break;
+				case 'break':
+					notes = fulldata['break flavors'][getRandomIntInclusive(0, fulldata['break flavors'].length - 1)];
 
-			case 'pull':
-				notes = fulldata['pull flavors'][getRandomIntInclusive(0, fulldata['pull flavors'].length - 1)];
-				break;
+				case 'push':
+					notes = fulldata['push flavors'][getRandomIntInclusive(0, fulldata['push flavors'].length - 1)];
+					break;
 
-			case 'squat':
-				notes = fulldata['squat flavors'][getRandomIntInclusive(0, fulldata['squat flavors'].length - 1)];
-				break;
+				case 'pull':
+					notes = fulldata['pull flavors'][getRandomIntInclusive(0, fulldata['pull flavors'].length - 1)];
+					break;
 
-			case 'lunge':
-				notes = fulldata['lunge flavors'][getRandomIntInclusive(0, fulldata['lunge flavors'].length - 1)];
-				break;
+				case 'squat':
+					notes = fulldata['squat flavors'][getRandomIntInclusive(0, fulldata['squat flavors'].length - 1)];
+					break;
 
-			case 'static':
-				notes = fulldata['static flavors'][getRandomIntInclusive(0, fulldata['static flavors'].length - 1)];
-				break;
+				case 'lunge':
+					notes = fulldata['lunge flavors'][getRandomIntInclusive(0, fulldata['lunge flavors'].length - 1)];
+					break;
+
+				case 'static':
+					notes = fulldata['static flavors'][getRandomIntInclusive(0, fulldata['static flavors'].length - 1)];
+					break;
+			}
+
+			if (target) notes += ' ' + fulldata['target flavors'][getRandomIntInclusive(0, fulldata['target flavors'].length - 1)] + ' ' + target.toLowerCase() + ', ';
+			if (primary) notes += fulldata['primary flavors'][getRandomIntInclusive(0, fulldata['primary flavors'].length - 1)] + ' ' + primary.toLowerCase() + '. ';
+			if (secondary) notes += fulldata['secondary flavors'][getRandomIntInclusive(0, fulldata['secondary flavors'].length - 1)] + ' ' + secondary.toLowerCase() + '.';
+
+		} else if (infoType == 2) {
+			if (currentMovement+1 == movements.length) notes = 'Up next: Workout finished!';
+			else notes = 'Up next: ' + createUpNext(movements[currentMovement+1]);
 		}
 
-		if (target) notes += ' ' + fulldata['target flavors'][getRandomIntInclusive(0, fulldata['target flavors'].length - 1)] + ' ' + target.toLowerCase() + ', ';
-		if (primary) notes += fulldata['primary flavors'][getRandomIntInclusive(0, fulldata['primary flavors'].length - 1)] + ' ' + primary.toLowerCase() + '. ';
-		if (secondary) notes += fulldata['secondary flavors'][getRandomIntInclusive(0, fulldata['secondary flavors'].length - 1)] + ' ' + secondary.toLowerCase() + '.';
-
 		movementNotes.innerText = notes;
+		movementNotesMobile.innerText = notes;
 
 		//offset exercise clock
 		var startSeconds = activeSeconds;
@@ -176,6 +177,7 @@ function loadNextMovement() {
 		//style when used as timer for timed movement
 		var isTimed = false;
 		var isSymmetric = false;
+		var silentStart = false;
 		var playedStartSound = false;
 		var playedSwitchSound = false;
 		var playedEndSound = false;
@@ -183,13 +185,15 @@ function loadNextMovement() {
 		var checkpointTime = 0;
 		var previousSecond = 0;
 
-		if (move.type == 'static') isTimed = true;
-		if (move.type != 'stretch' && move.reps != null) {
-			if (move.repType % 2 != 0) isSymmetric = true;
+		if (move.type == 'static' || move.type == 'stretch' || move.type == 'break') {
+			isTimed = true;
+			silentStart = true;
 		}
 
+		if (move.repType % 2 != 0) isSymmetric = true;
+
 		if (isTimed) {
-			startSeconds += 10;
+			if (move.type == 'static') startSeconds += 5;
 
 			if (isSymmetric) {
 				amountOfTime = reps * 2;
@@ -215,16 +219,16 @@ function loadNextMovement() {
 					shortTone.pause();
 					shortTone.currentTime = 0;
 					previousSecond = time;
-					shortTone.play();
+					if (!silentStart) shortTone.play();
 
 				//play start sound
 				} else if (time == 0 && !playedStartSound) {
-					longTone.play();
+					if (!silentStart) longTone.play();
 					playedStartSound = true;
 
 				//play checkpoint sound
 				} else if (time % checkpointTime == 0 && !playedSwitchSound && time != amountOfTime && time > 0 && !playedEndSound) {
-					longTone.play();
+					if (!silentStart) longTone.play();
 					playedSwitchSound = true;
 
 				//reset checkpoint sound
@@ -240,17 +244,17 @@ function loadNextMovement() {
 
 			var str = formatTime(time, false);
 			movementClock.innerText = str;
-		}, 10);
+		}, courtesyTime);
 
 		//load screen
-		if (currentMovement == 0) toggleAppearance(exercise, true, 1000, true);
-		else toggleAppearance(exercise, true, 1000);
+		if (currentMovement == 0) toggleAppearance(exercise, true, standardTransitionTime);
+		else toggleAppearance(exercise, true, standardTransitionTime);
 		
 		currentMovement++;
 
 		updateTracker();
 
-	}, 1000);
+	}, standardTransitionTime);
 }
 
 function updateTracker() {
@@ -266,13 +270,13 @@ function updateTracker() {
 }
 
 function loadResults() {
-	resultText.innerText = fulldata['result title flavors'][getRandomIntInclusive(0, fulldata['result title flavors'].length - 1)];
-	resultFinal.innerText = fulldata['result start flavors'][getRandomIntInclusive(0, fulldata['result start flavors'].length - 1)] + ' ' + fulldata['result end flavors'][getRandomIntInclusive(0, fulldata['result end flavors'].length - 1)];
+	resultTitle.innerText = fulldata['result title flavors'][getRandomIntInclusive(0, fulldata['result title flavors'].length - 1)];
+	resultDescription.innerText = fulldata['result start flavors'][getRandomIntInclusive(0, fulldata['result start flavors'].length - 1)] + ' ' + fulldata['result end flavors'][getRandomIntInclusive(0, fulldata['result end flavors'].length - 1)];
 
-	toggleAppearance(results, true, 1000, true);
+	toggleAppearance(results, true, standardTransitionTime);
 	finished = true;
 
 	setTimeout(function() {
-		toggleAppearance(resultFinal, true, 1000);
-	}, 2000);
+		toggleAppearance(resultDescription, true, standardTransitionTime);
+	}, standardTransitionTime * 2);
 }
