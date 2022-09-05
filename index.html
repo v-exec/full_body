@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>full_body</title>
-	<meta name="viewport" content="width=device-width, initial-scale=0.8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700">
 	<link rel="stylesheet" type="text/css" href="assets/style.css">
@@ -12,19 +12,18 @@
 	<div id="main">
 		<span id="info">info</span>
 		<div id="infoBox">
-			<span id="infoTitle">Full_Body, created by vi from <a class="infoLink" href="https://v-os.ca">V-OS</a>.</span>
-			<span id="infoText">
-				Full_Body is a web application made to help organize and sequence fitness exercises in the effort of ultimately making my time exercising more engaging. It supports a large number of exercises that require little to no equipment since I quite enjoy calisthenics-oriented workouts. It also has a variety of features for how it should sequence your workouts which should hopefully make this useful for my future use and that of anyone else who would like to use this app.
-				<br>
-				<br>
-				This application uses cookies to save your workout plan, meaning that in the event that your browser or computer changes, or deletes these cookies, your workout will unfortunately be erased. This is my way of avoiding using a database while still giving different users the ability to have a unique experience.
-				<br>
-				<br>
-				I hope you enjoy using this as much as I do! If you'd like to know more about this app, please check out the <a class="infoLink" href="https://github.com/v-exec/full_body">github page</a>.
-				<br>
-				<br>
-				If you'd like to know more about my other work, you can also take a look at my website, <a class="infoLink" href="https://v-os.ca">v-os</a>.
-			</span>
+			<div id="infoTitleHolder"><span id="infoTitle">Full_Body, created by vi from <a class="infoLink" href="https://v-os.ca">V-OS</a>.</span></div>
+			<div id="infoTextHolder">
+				<span id="infoText">
+					Full_Body is a web application made to help organize and sequence fitness exercises created to make my time exercising more engaging. It supports a large number of exercises that require little to no equipment for calisthenics-oriented workouts. It also has a variety of features regarding exercise sequencing for varied workouts.
+					<br>
+					<br>
+					This application uses cookies to save your workout plan, meaning that in the event that your browser or computer changes, or deletes these cookies, your workout will unfortunately be erased. This is my way of avoiding using a database while still giving different users the ability to have a unique experience.
+					<br>
+					<br>
+					I hope you enjoy using this as much as I do! If you'd like to know more about this app, please check out the <a class="infoLink" href="https://github.com/v-exec/full_body">github page</a>. And if you'd like to know more about my other work, you can also take a look at my website, <a class="infoLink" href="https://v-os.ca">v-os</a>.
+				</span>
+			</div>
 		</div>
 
 		<div id="intro">
@@ -34,9 +33,6 @@
 			<div id="exerciseList">
 				<span id="exerciseAdd">+</span>
 				<span id="musclesWarning"></span>
-			</div>
-			<div id="introButtons">
-				<span id="optionsPlan">Options</span><span id="start">Start</span>
 			</div>
 			<div id="optionsList">
 				<div class="listElement">
@@ -55,8 +51,14 @@
 					<span class="fluidText">Break for</span><input id="breakDurationSetting" class="fluidField" inputmode="numeric" maxlength="3"></input><span id="breakDurationText" class="fluidText"></span>
 				</div>
 				<div class="listElement">
-					<span class="fluidText">Info type:</span><input id="infoTypeSetting" class="fluidField" inputmode="numeric" maxlength="1"></input><span id="infoTypeText" class="fluidText"></span>
+					<span class="fluidText">Info type: <span id="infoTypeUpNext">up next</span>, <span id="infoTypeFlavorText">flavor text</span>, or <span id="infoTypeNone">none</span>.</span>
 				</div>
+				<div class="listElement">
+					<span id="hardModeSetting" class="fluidLeftButton"></span><span class="fluidText">Hard mode,</span><input id="hardModeTimeSetting" class="fluidField" inputmode="numeric" maxlength="3"></input><span id="hardModeTimeText" class="fluidText"></span>
+				</div>
+			</div>
+			<div id="introButtons">
+				<span id="optionsPlan">Options</span><span id="start">Start</span>
 			</div>
 		</div>
 

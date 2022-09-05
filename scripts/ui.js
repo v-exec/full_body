@@ -42,7 +42,7 @@ start.addEventListener('click', function() {
 
 info.addEventListener('click', function() {
 	if (animating) return;
-	if (!infoOpen) toggleAppearance(infoBox, true, standardTransitionTime);
+	if (!infoOpen) toggleAppearance(infoBox, true, standardTransitionTime, true);
 	else toggleAppearance(infoBox, false, standardTransitionTime);
 	infoOpen = !infoOpen;
 });
@@ -84,24 +84,42 @@ breakDurationSetting.addEventListener('change', function() {
 	encodeProfile();
 });
 
-infoTypeSetting.addEventListener('change', function() {
-	infoType = Math.abs(infoTypeSetting.value.toString().replace(/\D/g,''));
-	if (infoType > 2) infoType = 2;
-	infoTypeSetting.value = infoType;
+infoTypeUpNext.addEventListener('click', function() {
+	infoType = 0;
+	infoTypeUpNext.className = 'activeFluidButton';
+	infoTypeFlavorText.className = '';
+	infoTypeNone.className = '';
+	encodeProfile();
+});
 
-	switch (infoType) {
-		case 0:
-			infoTypeText.innerText = ': none.';
-			break;
+infoTypeFlavorText.addEventListener('click', function() {
+	infoType = 1;
+	infoTypeUpNext.className = '';
+	infoTypeFlavorText.className = 'activeFluidButton';
+	infoTypeNone.className = '';
+	encodeProfile();
+});
 
-		case 1:
-			infoTypeText.innerText = ': flavor text.';
-			break;
+infoTypeNone.addEventListener('click', function() {
+	infoType = 2;
+	infoTypeUpNext.className = '';
+	infoTypeFlavorText.className = '';
+	infoTypeNone.className = 'activeFluidButton';
+	encodeProfile();
+});
 
-		case 2:
-			infoTypeText.innerText = ': up next.';
-			break;
-	}
+hardModeSetting.addEventListener('click', function() {
+	hardMode = !hardMode;
+	if (hardMode) hardModeSetting.innerText = 'x';
+	else hardModeSetting.innerText = '';
+	encodeProfile();
+});
+
+hardModeTimeSetting.addEventListener('change', function() {
+	hardModeTime = Math.abs(hardModeTimeSetting.value.toString().replace(/\D/g,''));
+	hardModeTimeSetting.value = hardModeTime;
+	if (Math.abs(hardModeTime) != 1) hardModeTimeText.innerText = 'seconds per movement.';
+	else hardModeTimeText.innerText = 'second per movement.';
 	encodeProfile();
 });
 
@@ -110,6 +128,22 @@ exerciseAdd.addEventListener('click', function() {
 	encodeProfile();
 	refreshExerciseList();
 });
+
+window.addEventListener('resize', function() {
+	resizeText();
+});
+
+function resizeText() {
+	//resizes elements on home page
+	var tHeight = parseInt(introTitle.clientHeight) + parseInt(window.getComputedStyle(introTitle).getPropertyValue('margin-bottom'));
+	var dHeight = parseInt(introDescription.clientHeight) + parseInt(window.getComputedStyle(introDescription).getPropertyValue('margin-bottom'));
+	var bHeight = parseInt(introButtons.clientHeight);
+	var eMargin = parseInt(window.getComputedStyle(exerciseList).getPropertyValue('margin-bottom'));
+	var t = tHeight + dHeight + bHeight + eMargin;
+
+	exerciseList.style.height = 'calc(100% - ' + t + 'px)';
+	optionsList.style.height = 'calc(100% - ' + t + 'px)';
+}
 
 function refreshExerciseList() {
 	//clear list of elements

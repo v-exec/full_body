@@ -4,11 +4,12 @@ function getRandomIntInclusive(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function toggleAppearance(element, appearance, milliseconds) {
+function toggleAppearance(element, appearance, milliseconds, flex=false) {
 	animating = true;
 
 	if (appearance) {
-		element.style.display = 'inline-block';
+		if (flex) element.style.display = 'flex';
+		else element.style.display = 'inline-block';
 		setTimeout(function(){
 			element.style.opacity = 1;
 		}, courtesyTime);
@@ -59,6 +60,11 @@ function formatTime(s, includeHours) {
 }
 
 function createDetails(mov) {
+	if (hardMode) {
+		if (hardModeTime == 1) return hardModeTime + ' second.';
+		else return hardModeTime + ' seconds.';
+	}
+
 	var details = '';
 	var reps = mov.reps;
 	var repType = mov.repType;
@@ -119,7 +125,7 @@ function createUpNext(mov) {
 	return details;
 }
 
-function saveProfileInCookie(workout, circuit, stretches, muscleGroupsWarning, breakFrequency, breakDuration, infoType) {
+function saveProfileInCookie(workout, circuit, stretches, muscleGroupsWarning, breakFrequency, breakDuration, infoType, hardMode, hardModeTime) {
 	var date = new Date();
 	date.setTime(date.getTime() + 100000 * 36000);
 	var suffix = ';expires='+date.toUTCString()+';path=/;SameSite=Strict';
@@ -130,6 +136,8 @@ function saveProfileInCookie(workout, circuit, stretches, muscleGroupsWarning, b
 	document.cookie = 'breakFrequency='+breakFrequency+suffix;
 	document.cookie = 'breakDuration='+breakDuration+suffix;
 	document.cookie = 'infoType='+infoType+suffix;
+	document.cookie = 'hardMode='+hardMode+suffix;
+	document.cookie = 'hardModeTime='+hardModeTime+suffix;
 }
 
 function loadCookie(target) {
@@ -161,7 +169,7 @@ function encodeProfile() {
 		if (i+1 != movements.length) workout += ',';
 	}
 
-	saveProfileInCookie(workout, circuit, stretches, muscleGroupsWarning, breakFrequency, breakDuration, infoType);
+	saveProfileInCookie(workout, circuit, stretches, muscleGroupsWarning, breakFrequency, breakDuration, infoType, hardMode, hardModeTime);
 }
 
 //decodes cookie and applies its settings
@@ -187,7 +195,18 @@ function decodeProfile() {
 	breakDurationSetting.value = breakDuration;
 
 	infoType = loadCookie('infoType');
-	infoTypeSetting.value = infoType;
+	infoTypeUpNext.className = '';
+	infoTypeFlavorText.className = '';
+	infoTypeNone.className = '';
+	if (infoType == 0) infoTypeUpNext.className = 'activeFluidButton';
+	else if (infoType == 1) infoTypeFlavorText.className = 'activeFluidButton';
+	else infoTypeNone.className = 'activeFluidButton';
+
+	hardMode = (loadCookie('hardMode') === 'true');
+	if (hardMode) hardModeSetting.innerText = 'x';
+
+	hardModeTime = loadCookie('hardModeTime');
+	hardModeTimeSetting.value = hardModeTime;
 
 	//movements
 	var m = loadCookie('workout');
@@ -214,7 +233,8 @@ function decodeProfile() {
 	var e = new Event('change');
 	breakFrequencySetting.dispatchEvent(e);
 	breakDurationSetting.dispatchEvent(e);
-	infoTypeSetting.dispatchEvent(e);
+	hardModeTimeSetting.dispatchEvent(e);
 
 	refreshExerciseList();
+	resizeText();
 }

@@ -1,7 +1,7 @@
 function appStart() {
 	//load profile - if no profile, create default profile
 	if (loadCookie('workout') == null) {
-		saveProfileInCookie('4_3_20_2',true,true,true,2,60,1);
+		saveProfileInCookie('4_3_20_2',true,true,true,2,60,1,false,60);
 	}
 	generateIntro();
 	decodeProfile()
@@ -52,6 +52,13 @@ function sequenceMovements() {
 		newMovements.push(lastStretch);
 	}
 
+	//remove buttons if hard mode
+	if (hardMode) {
+		pauseTimer.style.display = 'none';
+		nextMovement.style.display = 'none';
+		pausedClock.style.display = 'none';
+	}
+
 	movements = newMovements;
 
 	loadMovements();
@@ -68,7 +75,7 @@ function loadMovements() {
 			if (paused) pausedSeconds += 1;
 			else activeSeconds += 1;
 		}
-	}, standardTransitionTime);
+	}, 1000);
 
 	//start clocks
 	setInterval(function() {
@@ -135,6 +142,7 @@ function loadNextMovement() {
 
 				case 'break':
 					notes = fulldata['break flavors'][getRandomIntInclusive(0, fulldata['break flavors'].length - 1)];
+					break;
 
 				case 'push':
 					notes = fulldata['push flavors'][getRandomIntInclusive(0, fulldata['push flavors'].length - 1)];
@@ -172,9 +180,9 @@ function loadNextMovement() {
 		//offset exercise clock
 		var startSeconds = activeSeconds;
 
+		//style when used as timer for timed movement
 		movementClock.style.color = 'var(--ultraBright)';
 
-		//style when used as timer for timed movement
 		var isTimed = false;
 		var isSymmetric = false;
 		var silentStart = false;
@@ -185,11 +193,8 @@ function loadNextMovement() {
 		var checkpointTime = 0;
 		var previousSecond = 0;
 
-		if (move.type == 'static' || move.type == 'stretch' || move.type == 'break') {
-			isTimed = true;
-			silentStart = true;
-		}
-
+		if (move.type == 'static' || move.type == 'stretch' || move.type == 'break') isTimed = true;
+		if (move.type == 'stretch' || move.type == 'break') silentStart = true;
 		if (move.repType % 2 != 0) isSymmetric = true;
 
 		if (isTimed) {
@@ -204,6 +209,11 @@ function loadNextMovement() {
 			}
 
 			amountOfTime *= sets;
+		}
+
+		if (hardMode) {
+			isTimed = true;
+			amountOfTime = hardModeTime;
 		}
 		
 		timeInterval = setInterval(function() {
@@ -239,6 +249,8 @@ function loadNextMovement() {
 				} else if (time == amountOfTime && !playedEndSound) {
 					longTone.play();
 					playedEndSound = true;
+
+					if (hardMode) loadNextMovement();
 				}
 			}
 

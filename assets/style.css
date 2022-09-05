@@ -18,14 +18,13 @@
 }
 
 html {
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 	box-sizing: border-box;
 	font-weight: 400;
 	padding: 0;
 	margin: 0;
 	background-color: black;
-	overflow-y: hidden;
 }
 
 *,:before,:after {
@@ -37,7 +36,6 @@ body {
 	height: 100%;
 	font-family: "Roboto";
 	background-color: var(--background);
-	overflow: hidden;
 
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -81,6 +79,7 @@ body {
 	height: 100%;
 	transition: opacity var(--screenTransition) ease;
 	opacity: 0;
+	font-size: 0;
 }
 
 #intro {
@@ -91,7 +90,8 @@ body {
 /* INTRO */
 
 #introTitle,
-#infoTitle {
+#infoTitle,
+#resultTitle {
 	display: inline-block;
 	width: 100%;
 	font-size: 110px;
@@ -100,7 +100,8 @@ body {
 	color: var(--ultraDark);
 }
 
-#introDescription {
+#introDescription,
+#resultDescription {
 	display: inline-block;
 	width: 100%;
 	font-size: 20px;
@@ -108,16 +109,16 @@ body {
 	color: var(--dark);
 }
 
+#resultDescription {
+	opacity: 0;
+	transition: opacity var(--screenTransition) ease;
+}
+
 #exerciseList,
 #optionsList {
 	display: inline-block;
-	position: relative;
 	width: 100%;
-	max-height: 50%;
-	left: 50%;
-	transform: translate(-50%, 0%);
-	margin-left: auto;
-	margin-right: auto;
+	margin-bottom: 40px;
 	text-align: center;
 	overflow-y: auto;
 	scrollbar-width: thin;
@@ -130,7 +131,7 @@ body {
 /* INFO */
 
 #info {
-	position: absolute;
+	position: fixed;
 	bottom: 10px;
 	left: 10px;
 	text-decoration: none;
@@ -146,6 +147,7 @@ body {
 
 #infoBox {
 	display: none;
+	flex-direction: column;
 	position: absolute;
 	width: calc(100% - 300px);
 	height: calc(100% - 300px);
@@ -158,6 +160,15 @@ body {
 	z-index: 2;
 	transition: opacity var(--screenTransition) ease;
 	opacity: 0;
+}
+
+#infoTitleHolder {
+	display: flex;
+}
+
+#infoTextHolder {
+	display: flex;
+	overflow-y: auto;
 }
 
 #infoText {
@@ -188,11 +199,7 @@ body {
 
 #introButtons {
 	display: inline-block;
-	position: absolute;
 	width: 100%;
-	height: 50px;
-	left: 0;
-	bottom: 150px;
 	text-align: center;
 }
 
@@ -204,6 +211,7 @@ body {
 	background-color: var(--ultraBright);
 	border-radius: var(--radius);
 	color: var(--dark);
+	font-size: 16px;
 	font-weight: 700;
 	align-items: center;
 	justify-content: center;
@@ -232,7 +240,6 @@ body {
 	display: inline-block;
 	font-size: 14px;
 	color: var(--bright);
-	margin-bottom: 20px;
 }
 
 .listElement {
@@ -298,9 +305,9 @@ body {
 	position: relative;
 	width: 25px;
 	height: 25px;
-	top: 6px;
+	top: 5px;
 	line-height: 20px;
-	margin-right: 20px;
+	margin-right: 15px;
 	border: 1px solid var(--bright);
 	border-radius: var(--radius);
 	color: var(--bright);
@@ -327,6 +334,22 @@ body {
 .fluidLeftButton:hover {
 	color: var(--dark);
 	cursor: pointer;
+}
+
+#infoTypeUpNext,
+#infoTypeFlavorText,
+#infoTypeNone {
+	color: var(--bright);
+}
+
+#infoTypeUpNext:hover,
+#infoTypeFlavorText:hover,
+#infoTypeNone:hover {
+	cursor: pointer;
+}
+
+.activeFluidButton {
+	color: var(--dark) !important;
 }
 
 /* EXERCISE */
@@ -502,26 +525,6 @@ body {
 	transition: width var(--elementTransition) ease;
 }
 
-/* RESULTS */
-
-#resultTitle {
-	display: inline-block;
-	width: 100%;
-	font-size: 110px;
-	font-weight: 700;
-	margin-bottom: 40px;
-	color: var(--ultraDark);
-}
-
-#resultDescription {
-	display: inline-block;
-	font-size: 20px;
-	margin-bottom: 40px;
-	color: var(--dark);
-	opacity: 0;
-	transition: opacity var(--screenTransition) ease;
-}
-
 /*-----------MEDIA-----------*/
 
 @media (max-width: 1400px) {
@@ -572,13 +575,10 @@ body {
 	}
 }
 
-@media (max-width: 900px) {
+@media (max-width: 900px),
+	   (max-height: 600px) {
 	#main {
 		padding: 40px;
-	}
-
-	#introButtons {
-		bottom: 40px;
 	}
 
 	#movementName {
@@ -613,6 +613,15 @@ body {
 	#pauseTimer {
 		right: calc(40px + 150px + 10px);
 	}
+
+	#infoTitle {
+		font-size: 48px;
+		margin-bottom: 20px;
+	}
+
+	#infoText {
+		font-size: 14px;
+	}
 }
 
 @media (max-width: 500px) {
@@ -624,5 +633,24 @@ body {
 	#pauseTimer {
 		width: calc(50% - 5px - 40px);
 		left: 40px;
+	}
+}
+
+@media (max-height: 600px) and (max-width: 1400px) {
+	#introTitle,
+	#resultTitle,
+	#introDescription,
+	#resultDescription {
+		margin-bottom: 20px;
+	}
+
+	#exerciseList,
+	#optionsList {
+		margin-bottom: 20px;
+	}
+
+	#movementNotes,
+	#movementNotesMobile {
+		display: none;
 	}
 }
