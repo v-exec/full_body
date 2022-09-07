@@ -109,6 +109,10 @@ body {
 	color: var(--dark);
 }
 
+#introDescription {
+	width: 50%;
+}
+
 #resultDescription {
 	opacity: 0;
 	transition: opacity var(--screenTransition) ease;
@@ -621,6 +625,10 @@ body {
 
 	#infoText {
 		font-size: 14px;
+	}
+
+	#introDescription {
+		width: 100%;
 	}
 }
 
