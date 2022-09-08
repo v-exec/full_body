@@ -106,6 +106,10 @@
 	vertical-align: top;
 }
 
+.listElement:last-child {
+	margin-bottom: 0;
+}
+
 .fluidField,
 .fluidDropdown,
 .fluidLeftButton,
