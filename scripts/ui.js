@@ -314,7 +314,8 @@ function refreshExerciseList() {
 		//REP TYPE
 		var repType = document.createElement('span');
 		repType.className = 'fluidDropdown';
-		repType.innerText = fulldata['rep types'][movements[i].repType];
+		if (Math.abs(repCount.value) != 1) repType.innerText = fulldata['rep types'][movements[i].repType];
+		else repType.innerText = fulldata['rep types singular'][[movements[i].repType]];
 		repType.setAttribute('value', movements[i].repType);
 
 		var list = document.createElement('div');
@@ -354,7 +355,8 @@ function refreshExerciseList() {
 		if (!keepPreviousRepType) {
 			movements[i].repType = list.children[0].getAttribute('value');
 			list.children[0].classList.add('fluidDropdownItemSelected');
-			repType.innerText = fulldata['rep types'][movements[i].repType];
+			if (Math.abs(repCount.value) != 1) repType.innerText = fulldata['rep types'][movements[i].repType];
+			else repType.innerText = fulldata['rep types singular'][[movements[i].repType]];
 			repType.setAttribute('value', movements[i].repType);
 			encodeProfile();
 		} //do all other appending after this to avoid overwriting it
