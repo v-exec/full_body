@@ -1,0 +1,132 @@
+@media (max-width: 1400px) {
+	#main {
+		padding: 80px;
+	}
+
+	#introTitle,
+	#infoTitle,
+	#resultTitle {
+		font-size: 72px;
+		line-height: 72px;
+	}
+
+	#introDescription,
+	#resultDescription {
+		font-size: 18px;
+	}
+
+	#infoBox {
+		width: calc(100% - 80px);
+		height: calc(100% - 80px);
+	}
+
+	#movementName {
+		font-size: 72px;
+	}
+
+	#movementNotes {
+		top: 100px;
+		right: 80px;
+	}
+
+	#movementClock {
+		left: 80px;
+	}
+
+	#tracker {
+		width: calc(100% - 160px);
+		left: 80px;
+	}
+
+	#nextMovement {
+		right: 80px;
+	}
+
+	#pauseTimer {
+		right: calc(80px + 150px + 10px);
+	}
+}
+
+@media (max-width: 900px),
+	   (max-height: 600px) {
+	#main {
+		padding: 40px;
+	}
+
+	#movementName {
+		width: 100%;
+	}
+
+	#movementNotes {
+		display: none;
+	}
+
+	#movementNotesMobile {
+		display: inline-block;
+	}
+
+	#movementDetails {
+		font-size: 30px;
+	}
+
+	#movementClock {
+		left: 40px;
+	}
+
+	#tracker {
+		width: calc(100% - 80px);
+		left: 40px;
+	}
+
+	#nextMovement {
+		right: 40px;
+	}
+
+	#pauseTimer {
+		right: calc(40px + 150px + 10px);
+	}
+
+	#infoTitle {
+		font-size: 48px;
+		margin-bottom: 20px;
+	}
+
+	#infoText {
+		font-size: 14px;
+	}
+
+	#introDescription {
+		width: 100%;
+	}
+}
+
+@media (max-width: 500px) {
+	#nextMovement {
+		width: calc(50% - 5px - 40px);
+		right: 40px;
+	}
+
+	#pauseTimer {
+		width: calc(50% - 5px - 40px);
+		left: 40px;
+	}
+}
+
+@media (max-height: 600px) and (max-width: 1400px) {
+	#introTitle,
+	#resultTitle,
+	#introDescription,
+	#resultDescription {
+		margin-bottom: 20px;
+	}
+
+	#exerciseList,
+	#optionsList {
+		margin-bottom: 20px;
+	}
+
+	#movementNotes,
+	#movementNotesMobile {
+		display: none;
+	}
+}

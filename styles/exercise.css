@@ -1,0 +1,170 @@
+#movementName {
+	display: inline-block;
+	text-transform: capitalize;
+	width: 60%;
+	font-size: 150px;
+	font-weight: 700;
+	color: var(--ultraDark);
+	margin-bottom: 40px;
+}
+
+#movementDetails {
+	display: inline-block;
+	width: 100%;
+	font-size: 40px;
+	font-weight: 700;
+	color: var(--dark);
+	margin-bottom: 40px;
+}
+
+#movementNotes,
+#movementNotesMobile {
+	font-size: 20px;
+	color: var(--dark);
+}
+
+#movementNotes {
+	display: inline-block;
+	position: absolute;
+	width: 30%;
+	text-align: right;
+	width: 30%;
+	top: 200px;
+	right: 150px;
+	vertical-align: top;
+}
+
+#movementNotesMobile {
+	display: none;
+	width: 60%;
+}
+
+#movementClock,
+#pausedClock,
+#totalClock {
+	display: inline-block;
+	position: absolute;
+	width: auto;
+	height: 35px;
+	bottom: 60px;
+	font-size: 30px;
+	color: var(--ultraBright);
+}
+
+#movementClock {
+	bottom: calc(150px + 60px);
+	left: 150px;
+	text-align: left;
+}
+
+#pausedClock {
+	bottom: 100px;
+}
+
+#pausedClock::before {
+	content: "+ ";
+}
+
+#totalClock,
+#pausedClock {
+	right: 0;
+	text-align: right;
+}
+
+#totalClock {
+	color: var(--dark);
+}
+
+#nextMovement,
+#pauseTimer {
+	display: flex;
+	position: absolute;
+	width: 150px;
+	height: 50px;
+	right: 150px;
+	bottom: 25px;
+	transform: translate(0%, -50%);
+	background-color: var(--ultraBright);
+	border-radius: var(--radius);
+	color: var(--dark);
+	font-size: 16px;
+	font-weight: 700;
+	align-items: center;
+	justify-content: center;
+	transition: background-color var(--elementTransition) ease;
+}
+
+#nextMovement:hover {
+	background-color: var(--bright);
+	cursor: pointer;
+}
+
+#pauseTimer {
+	right: calc(150px + 150px + 10px);
+	background-color: transparent;
+	border: 1px solid var(--bright);
+	color: var(--bright);
+	transition: color var(--elementTransition) ease;
+}
+
+#pauseTimer:hover {
+	color: var(--dark);
+	cursor: pointer;
+}
+
+/* TRACKER */
+
+#tracker {
+	display: none;
+	position: absolute;
+	width: calc(100% - 300px);
+	height: 60px;
+	bottom: 150px;
+	left: 150px;
+	opacity: 0;
+	transition: opacity var(--elementTransition) ease;
+}
+
+#progressNumbers {
+	display: inline-block;
+	position: relative;
+	width: 40px;
+	height: 100%;
+	bottom: -42%;
+	transform: translateX(-50%);
+	transition: left var(--elementTransition) ease;
+}
+
+#progressFraction,
+#progressPercentage {
+	display: inline-block;
+	position: absolute;
+	font-size: 14px;
+	color: var(--dark);
+	left: 50%;
+	top: 0%;
+	transform: translate(-50%, -50%);
+}
+
+#progressPercentage {
+	top: 100%;
+}
+
+#progressBar,
+#progressFill {
+	position: absolute;
+	width: 100%;
+	height: 10px;
+	bottom: 0;
+	left: 0;
+	background-color: var(--ultraBright);
+	border-radius: var(--radius);
+	z-index: 0;
+}
+
+#progressFill {
+	background-color: var(--dark);
+	width: 0%;
+	z-index: 1;
+	transition: width var(--elementTransition) ease;
+}

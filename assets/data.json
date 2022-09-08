@@ -389,6 +389,17 @@
 			"id": 36,
 			"possibly asymmetric": true,
 			"possibly repped": true
+		},
+		{
+			"name": "Crunch",
+			"type": "pull",
+			"primary": "abdominals",
+			"secondary": "obliques",
+			"target": "core",
+			"equipment": false,
+			"id": 37,
+			"possibly assymetric": false,
+			"possibly repped": true
 		}
 	],
 	

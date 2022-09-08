@@ -61,13 +61,6 @@ stretchesSetting.addEventListener('click', function() {
 	encodeProfile();
 });
 
-muscleGroupsWarningSetting.addEventListener('click', function() {
-	muscleGroupsWarning = !muscleGroupsWarning
-	if (muscleGroupsWarning) muscleGroupsWarningSetting.innerText = 'x';
-	else muscleGroupsWarningSetting.innerText = '';
-	encodeProfile();
-});
-
 breakFrequencySetting.addEventListener('change', function() {
 	breakFrequency = Math.abs(breakFrequencySetting.value.toString().replace(/\D/g,''));
 	breakFrequencySetting.value = breakFrequency;
@@ -129,21 +122,15 @@ exerciseAdd.addEventListener('click', function() {
 	refreshExerciseList();
 });
 
-window.addEventListener('resize', function() {
-	resizeText();
+//close dropdown on click
+window.addEventListener('click', function(e) {
+	if (!e.target.matches('.fluidDropdown')) {
+		var dropdowns = document.getElementsByClassName('fluidDropdownList');
+		for (var i = 0; i < dropdowns.length; i++) {
+			if (dropdowns[i].style.display != 'none') dropdowns[i].style.display = 'none';
+		}
+	}
 });
-
-function resizeText() {
-	//resizes elements on home page
-	var tHeight = parseInt(introTitle.clientHeight) + parseInt(window.getComputedStyle(introTitle).getPropertyValue('margin-bottom'));
-	var dHeight = parseInt(introDescription.clientHeight) + parseInt(window.getComputedStyle(introDescription).getPropertyValue('margin-bottom'));
-	var bHeight = parseInt(introButtons.clientHeight);
-	var eMargin = parseInt(window.getComputedStyle(exerciseList).getPropertyValue('margin-bottom'));
-	var t = tHeight + dHeight + bHeight + eMargin;
-
-	exerciseList.style.height = 'calc(100% - ' + t + 'px)';
-	optionsList.style.height = 'calc(100% - ' + t + 'px)';
-}
 
 function refreshExerciseList() {
 	//clear list of elements
@@ -163,40 +150,115 @@ function refreshExerciseList() {
 		remove.className = 'fluidLeftButton';
 		remove.innerText = '-';
 
-		(function(i,name) {
+		(function(i) {
 			remove.addEventListener('click', function() {
 				movements.splice(i, 1);
 				i--;
 				encodeProfile();
 				refreshExerciseList();
 			});
-		}(i,name));
+		}(i));
 
 		exercise.appendChild(remove);
 
 		//NAME
-		var name = document.createElement('select');
+		var name = document.createElement('span');
 		name.className = 'fluidDropdown';
+		name.innerText = movements[i].name;
+		name.setAttribute('value', movements[i].id);
+
+		var list = document.createElement('div');
+		list.className = 'fluidDropdownList';
+
+		var options = [];
+		var chest = [];
+		var back = [];
+		var arms = [];
+		var shoulders = [];
+		var legs = [];
+		var calves = [];
+		var core = [];
 
 		for (var j = 0; j < fulldata['movements'].length; j++) {
 			if (j == 0 || j == 1 || j == 2) continue; //skip stretches and breaks
-			var option = document.createElement('option');
-			option.value = j;
-			option.text = fulldata['movements'][j]['name'];
-			if (fulldata['movements'][j]['id'] == movements[i].id) option.setAttribute('selected', 'selected'); //select current movement
-			name.appendChild(option);
+			var option = document.createElement('span');
+			option.className = 'fluidDropdownItem';
+			option.setAttribute('value', j);
+			option.innerText = fulldata['movements'][j]['name'];
+			if (fulldata['movements'][j]['id'] == movements[i].id) option.classList.add('fluidDropdownItemSelected'); //select current movement
+
+			(function(i,option) {
+				option.addEventListener('click', function() {
+					movements[i].id = option.getAttribute('value');
+					encodeProfile();
+					decodeProfile();
+				});
+			}(i,option));
+
+			switch (fulldata['movements'][j]['target']) {
+				case 'chest':
+					chest.push(option);
+					break;
+
+				case 'back':
+					back.push(option);
+					break;
+
+				case 'arms':
+					arms.push(option);
+					break;
+
+				case 'shoulders':
+					shoulders.push(option);
+					break;
+
+				case 'legs':
+					legs.push(option);
+					break;
+
+				case 'calves':
+					calves.push(option);
+					break;
+
+				case 'core':
+					core.push(option);
+					break;
+			}
 		}
 
-		//reload all movement data, not just name
-		(function(i,name) {
-			name.addEventListener('change', function() {
-				movements[i].id = name.value;
-				encodeProfile();
-				decodeProfile();
-			});
-		}(i,name));
+		chest = chest.sort(sortOptions);
+		back = back.sort(sortOptions);
+		arms = arms.sort(sortOptions);
+		shoulders = shoulders.sort(sortOptions);
+		legs = legs.sort(sortOptions);
+		calves = calves.sort(sortOptions);
+		core = core.sort(sortOptions);
 
-		name.style.width = 40 + name.selectedOptions[0].text.length * 8 + 'px'; //scale to size of text
+		var divs = [];
+		for (var j = 0; j < 6; j++) {
+			var div = document.createElement('div');
+			div.className = 'fluidDropdownDivider';
+			divs.push([div]);
+		}
+
+		options = chest.concat(divs[0], back, divs[1], arms, divs[2], shoulders, divs[3], legs, divs[4], calves, divs[5], core);
+
+		for (var j = 0; j < options.length; j++) {
+			list.appendChild(options[j]);
+		}
+
+		var dropdownArrow = document.createElement('span');
+		dropdownArrow.className = 'fluidDropdownArrow';
+		dropdownArrow.innerText = '>';
+		
+		name.appendChild(dropdownArrow);
+		name.appendChild(list);
+
+		(function(name,list) {
+			name.addEventListener('click', function() {
+				list.style.display = 'block';
+			});
+		}(name,list));
 
 		exercise.appendChild(name);
 
@@ -250,8 +312,15 @@ function refreshExerciseList() {
 		exercise.appendChild(repCount);
 
 		//REP TYPE
-		var repType = document.createElement('select');
+		var repType = document.createElement('span');
 		repType.className = 'fluidDropdown';
+		repType.innerText = fulldata['rep types'][movements[i].repType];
+		repType.setAttribute('value', movements[i].repType);
+
+		var list = document.createElement('div');
+		list.className = 'fluidDropdownList';
+
+		var keepPreviousRepType = false;
 
 		for (var j = 0; j < fulldata['rep types'].length; j++) {
 			//avoid symmetry options on non-asymmetric movements
@@ -260,50 +329,72 @@ function refreshExerciseList() {
 			//avoid rep options on non-reppable movements
 			if (!fulldata['movements'][movements[i].id]['possibly repped'] && j < 2) continue;
 
-			var option = document.createElement('option');
-			option.value = j;
-			if (Math.abs(repCount.value) != 1) option.text = fulldata['rep types'][j];
-			else option.text = fulldata['rep types singular'][j];
+			//check previous rep type
+			if (repType.getAttribute('value') == j) keepPreviousRepType = true;
 
-			if (j == movements[i].repType) option.setAttribute('selected', 'selected'); //select current movement's rep type
-			repType.appendChild(option);
+			var option = document.createElement('span');
+			option.className = 'fluidDropdownItem';
+			option.setAttribute('value', j);
+			if (Math.abs(repCount.value) != 1) option.innerText = fulldata['rep types'][j];
+			else option.innerText = fulldata['rep types singular'][j];
+
+			if (j == movements[i].repType) option.classList.add('fluidDropdownItemSelected'); //select current movement's rep type
+
+			(function(i,option) {
+				option.addEventListener('click', function() {
+					movements[i].repType = option.getAttribute('value');
+					encodeProfile();
+					refreshExerciseList();
+				});
+			}(i,option));
+
+			list.appendChild(option);
 		}
+		//if previous repType is no longer in list, reset repType to first in list
+		if (!keepPreviousRepType) {
+			movements[i].repType = list.children[0].getAttribute('value');
+			list.children[0].classList.add('fluidDropdownItemSelected');
+			repType.innerText = fulldata['rep types'][movements[i].repType];
+			repType.setAttribute('value', movements[i].repType);
+			encodeProfile();
+		} //do all other appending after this to avoid overwriting it
 
-		(function(i,repType) {
-			repType.addEventListener('change', function() {
-				movements[i].repType = repType.value;
-				encodeProfile();
-				refreshExerciseList();
+		var dropdownArrow = document.createElement('span');
+		dropdownArrow.className = 'fluidDropdownArrow';
+		dropdownArrow.innerText = '>';
+
+		repType.appendChild(dropdownArrow);
+		repType.appendChild(list);
+
+		(function(repType,list) {
+			repType.addEventListener('click', function() {
+				list.style.display = 'block';
 			});
-		}(i,repType));
-
-		repType.style.width = 40 + repType.selectedOptions[0].text.length * 8 + 'px'; //scale to size of text
+		}(repType,list));
 
 		exercise.appendChild(repType);
-
 		exerciseList.insertBefore(exercise, exerciseAdd);
 	}
 
-	if (muscleGroupsWarning) {
-		var muscleGroupsCheck = [];
+	//muscles warning
+	var muscleGroupsCheck = [];
 
-		for (var i = 0; i < fulldata['muscle groups'].length; i++) {
-			muscleGroupsCheck.push(false);
-		}
-
-		for (var i = 0; i < movements.length; i++) {
-			for (var j = 0; j < muscleGroupsCheck.length; j++) {
-				if (movements[i].primary == fulldata['muscle groups'][j]) muscleGroupsCheck[j] = true;
-				if (movements[i].secondary == fulldata['muscle groups'][j]) muscleGroupsCheck[j] = true;
-			}
-		}
-
-		var muscles = '';
-		for (var i = 0; i < muscleGroupsCheck.length; i++) {
-			if (!muscleGroupsCheck[i]) muscles += fulldata['muscle groups'][i] + ', ';
-		}
-		muscles = muscles.slice(0, -2) + '.';
-
-		musclesWarning.innerText = fulldata['group warning flavors'][warningFlavorIndex] + muscles;
+	for (var i = 0; i < fulldata['muscle groups'].length; i++) {
+		muscleGroupsCheck.push(false);
 	}
+
+	for (var i = 0; i < movements.length; i++) {
+		for (var j = 0; j < muscleGroupsCheck.length; j++) {
+			if (movements[i].primary == fulldata['muscle groups'][j]) muscleGroupsCheck[j] = true;
+			if (movements[i].secondary == fulldata['muscle groups'][j]) muscleGroupsCheck[j] = true;
+		}
+	}
+
+	var muscles = '';
+	for (var i = 0; i < muscleGroupsCheck.length; i++) {
+		if (!muscleGroupsCheck[i]) muscles += fulldata['muscle groups'][i] + ', ';
+	}
+	muscles = muscles.slice(0, -2) + '.';
+
+	musclesWarning.innerText = fulldata['group warning flavors'][warningFlavorIndex] + muscles;
 }

@@ -1,7 +1,7 @@
 function appStart() {
 	//load profile - if no profile, create default profile
 	if (loadCookie('workout') == null) {
-		saveProfileInCookie('4_3_20_2',true,true,true,2,60,1,false,60);
+		saveProfileInCookie('4_3_20_2',true,true,2,60,1,false,60);
 	}
 	generateIntro();
 	decodeProfile()

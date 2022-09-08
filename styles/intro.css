@@ -1,0 +1,265 @@
+#introTitle,
+#infoTitle,
+#resultTitle {
+	display: inline-block;
+	width: 100%;
+	font-size: 110px;
+	line-height: 110px;
+	font-weight: 700;
+	margin-bottom: 40px;
+	color: var(--ultraDark);
+}
+
+#introDescription,
+#resultDescription {
+	display: inline-block;
+	width: 100%;
+	font-size: 20px;
+	margin-bottom: 40px;
+	color: var(--dark);
+}
+
+#introDescription {
+	width: 50%;
+}
+
+#resultDescription {
+	opacity: 0;
+	transition: opacity var(--screenTransition) ease;
+}
+
+#exerciseList,
+#optionsList {
+	display: inline-block;
+	width: 100%;
+	margin-bottom: 40px;
+	text-align: center;
+	opacity: 1;
+	transition: opacity var(--screenTransition) ease;
+	font-size: 16px;
+}
+
+#optionsList {
+	display: none;
+	opacity: 0;
+}
+
+#exerciseList::-webkit-scrollbar {
+	width: 6px;
+	background-color: var(--background);
+}
+
+#exerciseList::-webkit-scrollbar-thumb {
+	background-color: var(--bright);
+}
+
+#introButtons {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+}
+
+#optionsPlan,
+#start {
+	display: inline-flex;
+	width: 100px;
+	height: 50px;
+	background-color: var(--ultraBright);
+	border-radius: var(--radius);
+	color: var(--dark);
+	font-size: 16px;
+	font-weight: 700;
+	align-items: center;
+	justify-content: center;
+	transition: background-color var(--elementTransition) ease;
+}
+
+#start:hover {
+	background-color: var(--bright);
+	cursor: pointer;
+}
+
+#optionsPlan {
+	background-color: transparent;
+	border: 1px solid var(--bright);
+	color: var(--bright);
+	transition: color var(--elementTransition) ease;
+	margin-right: 10px;
+}
+
+#optionsPlan:hover {
+	color: var(--dark);
+	cursor: pointer;
+}
+
+#musclesWarning {
+	display: inline-block;
+	font-size: 14px;
+	color: var(--bright);
+}
+
+.listElement {
+	display: inline-block;
+	width: 100%;
+	min-height: 35px;
+	margin-bottom: 20px;
+	vertical-align: top;
+}
+
+.fluidField,
+.fluidDropdown,
+.fluidLeftButton,
+.fluidComma,
+.fluidText,
+.checkBox {
+	display: inline-block;
+	padding: 0px;
+	margin: 0px;
+	font-size: 16px;
+	margin-right: 10px;
+	height: 35px;
+	color: var(--dark);
+	vertical-align: top;
+}
+
+.fluidField,
+.fluidDropdown {
+	border: none;
+	background-color: transparent;
+	line-height: normal;
+	text-align: center;
+	
+}
+
+.fluidField {
+	border: none;
+	background-color: transparent;
+	line-height: normal;
+	text-align: center;
+	width: 30px;
+}
+
+.fluidField:focus,
+.fluidField:focus-visible {
+	outline: none;
+}
+
+.fluidField,
+.fluidDropdown {
+	border-bottom: solid 1px var(--dark);
+}
+
+.fluidText {
+	line-height: 35px;
+}
+
+.fluidComma {
+	line-height: 60px;
+}
+
+.fluidLeftButton {
+	position: relative;
+	width: 25px;
+	height: 25px;
+	top: 5px;
+	line-height: 20px;
+	margin-right: 15px;
+	border: 1px solid var(--bright);
+	border-radius: var(--radius);
+	color: var(--bright);
+	transition: color var(--elementTransition) ease;
+}
+
+#exerciseAdd {
+	display:  flex;
+	position: relative;
+	width: 25px;
+	height: 25px;
+	left: 50%;
+	margin-bottom: 20px;
+	transform: translate(-50%, 0%);
+	align-items: center;
+	justify-content: center;
+	border: 1px solid var(--bright);
+	border-radius: var(--radius);
+	color: var(--bright);
+	transition: color var(--elementTransition) ease;
+}
+
+#exerciseAdd:hover,
+.fluidLeftButton:hover {
+	color: var(--dark);
+	cursor: pointer;
+}
+
+#infoTypeUpNext,
+#infoTypeFlavorText,
+#infoTypeNone {
+	color: var(--bright);
+	cursor: pointer;
+}
+
+.activeFluidButton {
+	color: var(--dark) !important;
+}
+
+.fluidDropdown {
+	line-height: 35px;
+}
+
+.fluidDropdown:last-child {
+	margin-right: 0;
+}
+
+.fluidDropdown,
+.fluidDropdownItem {
+	cursor: pointer;
+}
+
+.fluidDropdownList {
+	display: none;
+	position: relative;
+	top: 0px;
+	background-color: var(--ultraBright);
+	overflow-y: auto;
+	max-height: 35vh;
+	z-index: 2;
+	scrollbar-width: thin;
+	scrollbar-color: var(--bright) var(--ultraBright);
+}
+
+.fluidDropdownItem {
+	display: flex;
+	width: 100%;
+	height: 45px;
+	padding: 0 10px 0 10px;
+	line-height: normal;
+	color: var(--dark);
+	background-color: var(--ultraBright);
+	align-items: center;
+	justify-content: center;
+}
+
+.fluidDropdownItem:hover {
+	background-color: var(--bright);
+}
+
+.fluidDropdownItemSelected {
+	background-color: var(--dark);
+	color: var(--ultraBright);
+}
+
+.fluidDropdownDivider {
+	width: 100%;
+	height: 1px;
+	background-color: var(--dark);
+}
+
+.fluidDropdownArrow {
+	height: 10px;
+	width: 25px;
+	line-height: 25px;
+	color: var(--bright);
+	writing-mode: vertical-rl;
+	font-weight: 700;
+}

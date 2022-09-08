@@ -125,14 +125,13 @@ function createUpNext(mov) {
 	return details;
 }
 
-function saveProfileInCookie(workout, circuit, stretches, muscleGroupsWarning, breakFrequency, breakDuration, infoType, hardMode, hardModeTime) {
+function saveProfileInCookie(workout, circuit, stretches, breakFrequency, breakDuration, infoType, hardMode, hardModeTime) {
 	var date = new Date();
 	date.setTime(date.getTime() + 100000 * 36000);
 	var suffix = ';expires='+date.toUTCString()+';path=/;SameSite=Strict';
 	document.cookie = 'workout='+workout+suffix;
 	document.cookie = 'circuit='+circuit+suffix;
 	document.cookie = 'stretches='+stretches+suffix;
-	document.cookie = 'muscleGroupsWarning='+muscleGroupsWarning+suffix;
 	document.cookie = 'breakFrequency='+breakFrequency+suffix;
 	document.cookie = 'breakDuration='+breakDuration+suffix;
 	document.cookie = 'infoType='+infoType+suffix;
@@ -169,7 +168,7 @@ function encodeProfile() {
 		if (i+1 != movements.length) workout += ',';
 	}
 
-	saveProfileInCookie(workout, circuit, stretches, muscleGroupsWarning, breakFrequency, breakDuration, infoType, hardMode, hardModeTime);
+	saveProfileInCookie(workout, circuit, stretches, breakFrequency, breakDuration, infoType, hardMode, hardModeTime);
 }
 
 //decodes cookie and applies its settings
@@ -184,9 +183,6 @@ function decodeProfile() {
 
 	stretches = (loadCookie('stretches') === 'true');
 	if (stretches) stretchesSetting.innerText = 'x';
-
-	muscleGroupsWarning = (loadCookie('muscleGroupsWarning') === 'true');
-	if (muscleGroupsWarning) muscleGroupsWarningSetting.innerText = 'x';
 
 	breakFrequency = loadCookie('breakFrequency');
 	breakFrequencySetting.value = breakFrequency;
@@ -236,5 +232,12 @@ function decodeProfile() {
 	hardModeTimeSetting.dispatchEvent(e);
 
 	refreshExerciseList();
-	resizeText();
+}
+
+function sortOptions(a, b) {
+	var aa = a.innerText.toLowerCase();
+	var bb = b.innerText.toLowerCase();
+	if (aa < bb) return -1;
+	if (aa > bb) return 1;
+	return 0;
 }

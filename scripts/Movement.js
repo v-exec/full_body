@@ -1,4 +1,4 @@
-function Movement(id=2, sets=1, reps=1, repType=0, name=fulldata['movements'][2].name, type=fulldata['movements'][2].type, primary=fulldata['movements'][2].primary, secondary=fulldata['movements'][2].secondary, target=fulldata['movements'][2].target) {
+function Movement(id=3, sets=1, reps=1, repType=0, name=fulldata['movements'][3].name, type=fulldata['movements'][2].type, primary=fulldata['movements'][2].primary, secondary=fulldata['movements'][2].secondary, target=fulldata['movements'][2].target) {
 	this.id = id;
 	
 	this.sets = sets;
