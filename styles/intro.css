@@ -266,4 +266,5 @@
 	color: var(--bright);
 	writing-mode: vertical-rl;
 	font-weight: 700;
+	pointer-events: none;
 }
