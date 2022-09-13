@@ -169,7 +169,7 @@ function loadNextMovement() {
 			if (primary) notes += fulldata['primary flavors'][getRandomIntInclusive(0, fulldata['primary flavors'].length - 1)] + ' ' + primary.toLowerCase() + '. ';
 			if (secondary) notes += fulldata['secondary flavors'][getRandomIntInclusive(0, fulldata['secondary flavors'].length - 1)] + ' ' + secondary.toLowerCase() + '.';
 
-		} else if (infoType == 2) {
+		} else if (infoType == 0) {
 			if (currentMovement+1 == movements.length) notes = 'Up next: Workout finished!';
 			else notes = 'Up next: ' + createUpNext(movements[currentMovement+1]);
 		}
@@ -193,12 +193,12 @@ function loadNextMovement() {
 		var checkpointTime = 0;
 		var previousSecond = 0;
 
-		if (move.type == 'static' || move.type == 'stretch' || move.type == 'break') isTimed = true;
+		if (move.repType > 1 || move.type == 'stretch' || move.type == 'break' || move.type == 'static') isTimed = true;
 		if (move.type == 'stretch' || move.type == 'break') silentStart = true;
 		if (move.repType % 2 != 0) isSymmetric = true;
 
 		if (isTimed) {
-			if (move.type == 'static') startSeconds += 5;
+			if (!silentStart) startSeconds += 5;
 
 			if (isSymmetric) {
 				amountOfTime = reps * 2;
