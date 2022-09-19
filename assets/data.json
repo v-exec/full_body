@@ -35,7 +35,7 @@
 			"target": "arms",
 			"equipment": true,
 			"id": 4,
-			"possibly asymmetric": false,
+			"possibly asymmetric": true,
 			"possibly repped": false
 		},
 		{
@@ -63,9 +63,9 @@
 		{
 			"name": "Narrow Grip Pullup",
 			"type": "pull",
-			"primary": "pectorals",
-			"secondary": "trapezius",
-			"target": "chest",
+			"primary": "latissimus",
+			"secondary": "biceps",
+			"target": "back",
 			"equipment": true,
 			"id": 7,
 			"possibly asymmetric": true,
@@ -86,7 +86,7 @@
 			"name": "Leg Raise",
 			"type": "pull",
 			"primary": "abdominals",
-			"secondary": "quadriceps",
+			"secondary": "obliques",
 			"target": "core",
 			"equipment": true,
 			"id": 9,
@@ -153,7 +153,7 @@
 			"type": "push",
 			"primary": "deltoids",
 			"secondary": "trapezius",
-			"target": "arms",
+			"target": "shoulders",
 			"equipment": false,
 			"id": 15,
 			"possibly asymmetric": true,
@@ -230,7 +230,7 @@
 			"type": "push",
 			"primary": "trapezius",
 			"secondary": "tricpes",
-			"target": "back",
+			"target": "shoulders",
 			"equipment": false,
 			"id": 22,
 			"possibly asymmetric": true,
@@ -241,7 +241,7 @@
 			"type": "static",
 			"primary": "trapezius",
 			"secondary": "deltoids",
-			"target": "back",
+			"target": "shoulders",
 			"equipment": false,
 			"id": 23,
 			"possibly asymmetric": true,
@@ -252,7 +252,7 @@
 			"type": "push",
 			"primary": "triceps",
 			"secondary": "trapezius",
-			"target": "back",
+			"target": "shoulders",
 			"equipment": false,
 			"id": 24,
 			"possibly asymmetric": false,
@@ -351,7 +351,7 @@
 			"type": "squat",
 			"primary": "calves",
 			"secondary": "quadriceps",
-			"target": "legs",
+			"target": "calves",
 			"equipment": false,
 			"id": 33,
 			"possibly asymmetric": true,
@@ -362,7 +362,7 @@
 			"type": "squat",
 			"primary": "calves",
 			"secondary": "quadriceps",
-			"target": "legs",
+			"target": "calves",
 			"equipment": false,
 			"id": 34,
 			"possibly asymmetric": false,
@@ -400,7 +400,28 @@
 			"id": 37,
 			"possibly assymetric": false,
 			"possibly repped": true
+		},
+		{
+			"name": "Hanging Leg Raise",
+			"type": "pull",
+			"primary": "abdominals",
+			"secondary": "obliques",
+			"target": "core",
+			"equipment": true,
+			"id": 38,
+			"possibly assymetric": false,
+			"possibly repped": true
 		}
+	],
+
+	"movement types":
+	[
+		"stretch",
+		"break",
+		"static",
+		"push",
+		"pull",
+		"squat"
 	],
 	
 	"muscle groups":
