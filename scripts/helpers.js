@@ -109,7 +109,7 @@ function createUpNext(mov) {
 	} else {
 		details = reps;
 
-		if (reps == 0) details += ' until failure';
+		if (reps == 0) details += ' ' + name + ' until failure';
 		else if ((repType == 3 || repType == 2) && reps == 1)	details += ' second of ' + name + 's';
 		else if ((repType == 3 || repType == 2))				details += ' seconds of ' + name + 's';
 		else if ((repType == 1 || repType == 0) && reps == 1)	details += ' rep of ' + name + 's';
@@ -118,7 +118,7 @@ function createUpNext(mov) {
 		//remove 's' on timed exercises with a single rep to sound more natural
 		if (sets == 1 && (repType == 3 || repType == 2)) details = details.substring(0, details.length - 1);
 
-		if (repType == 3 || repType == 1) details += 'on each side.';
+		if (repType == 3 || repType == 1) details += ' on each side.';
 		else details += '.';
 	}
 

@@ -392,11 +392,19 @@ function refreshExerciseList() {
 		}
 	}
 
+	var lackingMuscles = false;
 	var muscles = '';
 	for (var i = 0; i < muscleGroupsCheck.length; i++) {
-		if (!muscleGroupsCheck[i]) muscles += fulldata['muscle groups'][i] + ', ';
+		if (!muscleGroupsCheck[i]) {
+			muscles += fulldata['muscle groups'][i] + ', ';
+			lackingMuscles = true;
+		}
 	}
-	muscles = muscles.slice(0, -2) + '.';
 
-	musclesWarning.innerText = fulldata['group warning flavors'][warningFlavorIndex] + muscles;
+	if (lackingMuscles) {
+		muscles = muscles.slice(0, -2) + '.';
+		musclesWarning.innerText = fulldata['group warning flavors'][warningFlavorIndex] + muscles;
+	} else {
+		musclesWarning.innerText = '';
+	}
 }
