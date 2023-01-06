@@ -398,7 +398,7 @@
 			"target": "core",
 			"equipment": false,
 			"id": 37,
-			"possibly assymetric": false,
+			"possibly asymmetric": false,
 			"possibly repped": true
 		},
 		{
@@ -409,7 +409,18 @@
 			"target": "core",
 			"equipment": true,
 			"id": 38,
-			"possibly assymetric": false,
+			"possibly asymmetric": false,
+			"possibly repped": true
+		},
+		{
+			"name": "Lateral Raise",
+			"type": "pull",
+			"primary": "deltoids",
+			"secondary": "trapezius",
+			"target": "shoulders",
+			"equipment": true,
+			"id": 39,
+			"possibly asymmetric": true,
 			"possibly repped": true
 		}
 	],
