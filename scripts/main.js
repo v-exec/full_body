@@ -1,7 +1,7 @@
 function appStart() {
 	//load profile - if no profile, create default profile
 	if (loadCookie('workout') == null) {
-		saveProfileInCookie('4_3_20_2',true,true,2,60,1,false,60);
+		saveProfileInCookie('Pushup_3_20_2',true,true,2,60,1,false,60);
 	}
 	generateIntro();
 	decodeProfile()
@@ -10,7 +10,6 @@ function appStart() {
 function generateIntro() {
 	var i = getRandomIntInclusive(0, fulldata['intro flavors'].length - 1);
 	introTitle.innerText = fulldata['intro flavors'][i];
-	warningFlavorIndex = getRandomIntInclusive(0, fulldata['group warning flavors'].length - 1);
 }
 
 function sequenceMovements() {
@@ -36,7 +35,7 @@ function sequenceMovements() {
 		var x = 0;
 		for (var i = 0; i < newMovements.length; i++) {
 			if (x == breakFrequency) {
-				newMovements.splice(i, 0, new Movement(2,1,breakDuration,2,fulldata['movements'][2].name,fulldata['movements'][2].type));
+				newMovements.splice(i, 0, new Movement("Break",1,breakDuration,2));
 				i++;
 				x = 0;
 			}
@@ -46,8 +45,8 @@ function sequenceMovements() {
 
 	//add stretches
 	if (stretches) {
-		var firstStretch = new Movement(0,1,120,2,fulldata['movements'][0].name,fulldata['movements'][0].type);
-		var lastStretch = new Movement(1,1,120,2,fulldata['movements'][1].name,fulldata['movements'][1].type);
+		var firstStretch = new Movement("Dynamic Stretches",1,120,2);
+		var lastStretch = new Movement("Static Stretches",1,120,2);
 		newMovements.unshift(firstStretch);
 		newMovements.push(lastStretch);
 	}
@@ -126,53 +125,11 @@ function loadNextMovement() {
 
 		movementDetails.innerText = createDetails(move);
 
-		//add notes
+		//add up next in notes
 		var notes;
-		var type = move.type;
-		var target = move.target;
-		var primary = move.primary;
-		var secondary = move.secondary;
 		
-		if (infoType == 1) {
-			switch(type.toLowerCase()) {
-				case 'stretch':
-					if (move.name == 'Static Stretches') notes = fulldata['static stretch flavors'][getRandomIntInclusive(0, fulldata['static stretch flavors'].length - 1)];
-					else notes = fulldata['dynamic stretch flavors'][getRandomIntInclusive(0, fulldata['dynamic stretch flavors'].length - 1)];
-					break;
-
-				case 'break':
-					notes = fulldata['break flavors'][getRandomIntInclusive(0, fulldata['break flavors'].length - 1)];
-					break;
-
-				case 'push':
-					notes = fulldata['push flavors'][getRandomIntInclusive(0, fulldata['push flavors'].length - 1)];
-					break;
-
-				case 'pull':
-					notes = fulldata['pull flavors'][getRandomIntInclusive(0, fulldata['pull flavors'].length - 1)];
-					break;
-
-				case 'squat':
-					notes = fulldata['squat flavors'][getRandomIntInclusive(0, fulldata['squat flavors'].length - 1)];
-					break;
-
-				case 'lunge':
-					notes = fulldata['lunge flavors'][getRandomIntInclusive(0, fulldata['lunge flavors'].length - 1)];
-					break;
-
-				case 'static':
-					notes = fulldata['static flavors'][getRandomIntInclusive(0, fulldata['static flavors'].length - 1)];
-					break;
-			}
-
-			if (target) notes += ' ' + fulldata['target flavors'][getRandomIntInclusive(0, fulldata['target flavors'].length - 1)] + ' ' + target.toLowerCase() + ', ';
-			if (primary) notes += fulldata['primary flavors'][getRandomIntInclusive(0, fulldata['primary flavors'].length - 1)] + ' ' + primary.toLowerCase() + '. ';
-			if (secondary) notes += fulldata['secondary flavors'][getRandomIntInclusive(0, fulldata['secondary flavors'].length - 1)] + ' ' + secondary.toLowerCase() + '.';
-
-		} else if (infoType == 0) {
-			if (currentMovement+1 == movements.length) notes = 'Up next: Workout finished!';
-			else notes = 'Up next: ' + createUpNext(movements[currentMovement+1]);
-		}
+		if (currentMovement+1 == movements.length) notes = 'Up next: Workout finished!';
+		else notes = 'Up next: ' + createUpNext(movements[currentMovement+1]);
 
 		movementNotes.innerText = notes;
 		movementNotesMobile.innerText = notes;
@@ -193,8 +150,8 @@ function loadNextMovement() {
 		var checkpointTime = 0;
 		var previousSecond = 0;
 
-		if (move.repType > 1 || move.type == 'stretch' || move.type == 'break' || move.type == 'static') isTimed = true;
-		if (move.type == 'stretch' || move.type == 'break') silentStart = true;
+		if (move.repType > 1 || move.name == 'Static Stretches' || move.name == 'Static Stretches') isTimed = true;
+		if (move.name == 'Static Stretches' || move.name == 'Dynamic Stretches' || move.name == 'Break') silentStart = true;
 		if (move.repType % 2 != 0) isSymmetric = true;
 
 		if (isTimed) {

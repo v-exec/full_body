@@ -22,9 +22,6 @@ const stretchesSetting = document.getElementById('stretchesSetting');
 const muscleGroupsWarningSetting = document.getElementById('muscleGroupsWarningSetting');
 const breakFrequencySetting = document.getElementById('breakFrequencySetting');
 const breakDurationSetting = document.getElementById('breakDurationSetting');
-const infoTypeUpNext = document.getElementById('infoTypeUpNext');
-const infoTypeFlavorText = document.getElementById('infoTypeFlavorText');
-const infoTypeNone = document.getElementById('infoTypeNone');
 const hardModeSetting = document.getElementById('hardModeSetting');
 const hardModeTimeSetting = document.getElementById('hardModeTimeSetting');
 
@@ -50,8 +47,6 @@ const progressPercentage = document.getElementById('progressPercentage');
 const breakFrequencyText = document.getElementById('breakFrequencyText');
 const breakDurationText = document.getElementById('breakDurationText');
 const hardModeTimeText = document.getElementById('hardModeTimeText');
-
-const musclesWarning = document.getElementById('musclesWarning');
 
 //graphics
 const progressBar = document.getElementById('progressBar');
@@ -87,7 +82,6 @@ var stretches = false;
 var muscleGroupsWarning = false;
 var breakFrequency = 0;
 var breakDuration = 0;
-var infoType = 0;
 var hardMode = false;
 var hardModeTime = 0;
 

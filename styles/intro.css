@@ -111,6 +111,7 @@
 }
 
 .fluidField,
+.fluidTextField,
 .fluidDropdown,
 .fluidLeftButton,
 .fluidComma,
@@ -127,30 +128,28 @@
 }
 
 .fluidField,
+.fluidTextField,
 .fluidDropdown {
 	border: none;
 	background-color: transparent;
 	line-height: normal;
 	text-align: center;
-	
+	border-bottom: solid 1px var(--dark);
 }
 
 .fluidField {
-	border: none;
-	background-color: transparent;
-	line-height: normal;
-	text-align: center;
 	width: 30px;
 }
 
-.fluidField:focus,
-.fluidField:focus-visible {
-	outline: none;
+.fluidTextField {
+	min-width: 40px;
 }
 
-.fluidField,
-.fluidDropdown {
-	border-bottom: solid 1px var(--dark);
+.fluidField:focus,
+.fluidField:focus-visible,
+.fluidTextField:focus,
+.fluidTextField:focus-visible {
+	outline: none;
 }
 
 .fluidText {
@@ -180,7 +179,6 @@
 	width: 25px;
 	height: 25px;
 	left: 50%;
-	margin-bottom: 20px;
 	transform: translate(-50%, 0%);
 	align-items: center;
 	justify-content: center;

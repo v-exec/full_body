@@ -125,7 +125,7 @@ function createUpNext(mov) {
 	return details;
 }
 
-function saveProfileInCookie(workout, circuit, stretches, breakFrequency, breakDuration, infoType, hardMode, hardModeTime) {
+function saveProfileInCookie(workout, circuit, stretches, breakFrequency, breakDuration, hardMode, hardModeTime) {
 	var date = new Date();
 	date.setTime(date.getTime() + 100000 * 36000);
 	var suffix = ';expires='+date.toUTCString()+';path=/;SameSite=Strict';
@@ -134,7 +134,6 @@ function saveProfileInCookie(workout, circuit, stretches, breakFrequency, breakD
 	document.cookie = 'stretches='+stretches+suffix;
 	document.cookie = 'breakFrequency='+breakFrequency+suffix;
 	document.cookie = 'breakDuration='+breakDuration+suffix;
-	document.cookie = 'infoType='+infoType+suffix;
 	document.cookie = 'hardMode='+hardMode+suffix;
 	document.cookie = 'hardModeTime='+hardModeTime+suffix;
 }
@@ -159,16 +158,16 @@ function loadCookie(target) {
 function encodeProfile() {
 	var workout = '';
 
-	//movementId_setCount_repCount_repType,...
+	//movementName_setCount_repCount_repType
 	for (var i = 0; i < movements.length; i++) {
-		workout += movements[i].id + '_';
+		workout += movements[i].name + '_';
 		workout += movements[i].sets + '_';
 		workout += movements[i].reps + '_';
 		workout += movements[i].repType;
 		if (i+1 != movements.length) workout += ',';
 	}
 
-	saveProfileInCookie(workout, circuit, stretches, breakFrequency, breakDuration, infoType, hardMode, hardModeTime);
+	saveProfileInCookie(workout, circuit, stretches, breakFrequency, breakDuration, hardMode, hardModeTime);
 }
 
 //decodes cookie and applies its settings
@@ -190,14 +189,6 @@ function decodeProfile() {
 	breakDuration = loadCookie('breakDuration');
 	breakDurationSetting.value = breakDuration;
 
-	infoType = loadCookie('infoType');
-	infoTypeUpNext.className = '';
-	infoTypeFlavorText.className = '';
-	infoTypeNone.className = '';
-	if (infoType == 0) infoTypeUpNext.className = 'activeFluidButton';
-	else if (infoType == 1) infoTypeFlavorText.className = 'activeFluidButton';
-	else infoTypeNone.className = 'activeFluidButton';
-
 	hardMode = (loadCookie('hardMode') === 'true');
 	if (hardMode) hardModeSetting.innerText = 'x';
 
@@ -211,18 +202,12 @@ function decodeProfile() {
 	for (var i = 0; i < m.length; i++) {
 		var mData = m[i].split('_');
 
-		var id = mData[0];
+		var name = mData[0];
 		var sets = mData[1];
 		var reps = mData[2];
 		var repType = mData[3];
 
-		var name = fulldata['movements'][id]['name'];
-		var type = fulldata['movements'][id]['type'];
-		var primary = fulldata['movements'][id]['primary'];
-		var secondary = fulldata['movements'][id]['secondary'];
-		var target = fulldata['movements'][id]['target'];
-
-		movements.push(new Movement(id, sets, reps, repType, name, type, primary, secondary, target));
+		movements.push(new Movement(name, sets, reps, repType));
 	}
 
 	//fire fake event to update elements' surrounding flavor text

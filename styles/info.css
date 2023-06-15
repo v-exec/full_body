@@ -22,7 +22,7 @@
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	background-color: var(--ultraBright);
+	background-color: var(--background);
 	border-radius: var(--radius);
 	padding: 20px;
 	z-index: 2;
