@@ -45,8 +45,8 @@ function sequenceMovements() {
 
 	//add stretches
 	if (stretches) {
-		var firstStretch = new Movement("Dynamic Stretches",1,120,2);
-		var lastStretch = new Movement("Static Stretches",1,120,2);
+		var firstStretch = new Movement("Warm-Up",1,120,2);
+		var lastStretch = new Movement("Stretches",1,120,2);
 		newMovements.unshift(firstStretch);
 		newMovements.push(lastStretch);
 	}
@@ -150,8 +150,8 @@ function loadNextMovement() {
 		var checkpointTime = 0;
 		var previousSecond = 0;
 
-		if (move.repType > 1 || move.name == 'Static Stretches' || move.name == 'Static Stretches') isTimed = true;
-		if (move.name == 'Static Stretches' || move.name == 'Dynamic Stretches' || move.name == 'Break') silentStart = true;
+		if (move.repType > 1 || move.name == 'Warm-Up' || move.name == 'Stretches') isTimed = true;
+		if (move.name == 'Warm-Up' || move.name == 'Stretches' || move.name == 'Break') silentStart = true;
 		if (move.repType % 2 != 0) isSymmetric = true;
 
 		if (isTimed) {

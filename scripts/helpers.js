@@ -158,7 +158,7 @@ function loadCookie(target) {
 function encodeProfile() {
 	var workout = '';
 
-	//movementName_setCount_repCount_repType
+	//movementName_setCount_repCount_repType,movementName_setCount_repCount_repType
 	for (var i = 0; i < movements.length; i++) {
 		workout += movements[i].name + '_';
 		workout += movements[i].sets + '_';

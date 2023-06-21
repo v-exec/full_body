@@ -23,7 +23,3 @@ _full\_body_ is run entirely on the web, on [v-os](https://exp.v-os.ca/full_body
 - This application **uses cookies to save your workout plan**, and therefore may lose your data in the event you clear your cookies.
 
 - This application is a fun way to add some variety to one's workout, but it is **not a substitue for professionally offered advice**, and does not claim to be more efficient or performative than any other workout approach.
-
-## To Do
-
-- Add preset workouts.

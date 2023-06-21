@@ -194,17 +194,6 @@
 	cursor: pointer;
 }
 
-#infoTypeUpNext,
-#infoTypeFlavorText,
-#infoTypeNone {
-	color: var(--bright);
-	cursor: pointer;
-}
-
-.activeFluidButton {
-	color: var(--dark) !important;
-}
-
 .fluidDropdown {
 	line-height: 35px;
 }
